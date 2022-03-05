@@ -41,10 +41,8 @@ directories:
 $(NAME): $(OBJECTS) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 	@printf "$(PINK)Done building $(NAME) $(RESET)\n"
-	ls obj
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
-	#echo "mkdir " $@
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $(INCLUDE) $^ -o $@
 
