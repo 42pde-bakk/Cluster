@@ -66,4 +66,5 @@ void    print_grid_terminal(char col1, char col2)
         else
             printf(WHT "%c", c);
     }
+    printf("\n");
 }
