@@ -14,7 +14,7 @@
 #define RESET "\x1B[0m"
 
 
-void    print_grid(char col1, char col2)
+void    print_grid_terminal(char col1, char col2)
 {
     FILE *grid = fopen("grid5.txt", "r");
     char c;
@@ -61,7 +61,7 @@ void    print_grid(char col1, char col2)
 
 int main(void)
 {
-    print_grid('g', 'b');
+    print_grid_terminal('g', 'b');
     printf("\n");
     return (1);
 }
