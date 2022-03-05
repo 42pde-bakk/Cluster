@@ -3,6 +3,9 @@
 
 int main() {
 	init_field();
+
+	print_grid_terminal('a', 'b');
+	printf("\n");
 	// print to show it works
 
 //	while (game_alive()) {
