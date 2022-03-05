@@ -5,7 +5,7 @@
 #include "cluster.h"
 
 t_field g_field;
-t_tile	*tile_arr[100];
+t_tile	*tile_arr[TILES_AMOUNT];
 
 
 

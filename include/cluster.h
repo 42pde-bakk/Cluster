@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#define TILES_AMOUNT 61
+
 typedef enum s_dir {
 	DOWN = 0,
 	DOWNLEFT,
@@ -34,8 +36,11 @@ typedef struct	s_field {
 	t_tile	*center;
 }	t_field;
 
-extern t_field g_field;
-extern t_tile	*tile_arr[100];
+
+// sicke globals
+extern t_field	g_field;
+extern t_tile	*tile_arr[TILES_AMOUNT];
+extern int		tile_order[TILES_AMOUNT];
 
 // srcs/field/init_field.c
 int	init_field();
@@ -53,5 +58,8 @@ int get_link_direction(int dir);
 
 // output/print_grid_terminal.c
 void    print_grid_terminal(char col1, char col2);
+
+// srcs/field/tileorder.c
+void	get_indices(int antigravity);
 
 #endif //CLUSTER_CLUSTER_H
