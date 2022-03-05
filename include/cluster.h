@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 typedef enum s_dir {
 	DOWN = 0,
@@ -20,24 +21,30 @@ typedef enum s_dir {
 
 typedef struct s_tile {
 	int		idx;
-	char	value;
-	char*	color;
-	int		printed;
+	int		tile_colour;
+	bool	printed;
+	bool	alive;
 
 	struct s_tile	*neighbours[6];
 }	t_tile;
 
 typedef struct	s_field {
-	int	gravity;
+	int		gravity;
 	t_tile	*corners[6];
 	t_tile	*center;
 }	t_field;
 
 extern t_field g_field;
 
+// srcs/field/init_field.c
 int	init_field();
 
-// directions.c
+// srcs/field/tile.c
+int	get_n(const t_tile *t, int dir);
+void	print_tile(const t_tile *t);
+t_tile	*create_tile();
+
+// srcs/field/directions.c
 int	get_previous_direction(int dir);
 int get_next_direction(int dir);
 int get_opposite_direction(int dir);

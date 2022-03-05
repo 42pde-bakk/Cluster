@@ -6,32 +6,6 @@
 
 t_field g_field;
 
-//t_tile	*tile_arr[100];
-
-
-int	get_n(const t_tile *t, const int dir) {
-	if (t->neighbours[dir]) {
-		return (t->neighbours[dir]->idx);
-	}
-	return (-1);
-}
-
-void	print_tile(const t_tile *t) {
-	printf("tile %d, neighbours: D:%d, DL:%d, UL:%d, U:%d, UR:%d, DR: %d\n", t->idx,
-		   get_n(t, 0), get_n(t, 1), get_n(t, 2), get_n(t, 3), get_n(t, 4), get_n(t, 5)
-	);
-}
-
-static t_tile	*create_tile() {
-	static int idx = 0;
-
-	t_tile	*tile = calloc(1, sizeof(t_tile));
-	if (!tile)
-		exit(1);
-//	tile_arr[idx] = tile;
-	tile->idx = idx++;
-	return (tile);
-}
 
 // a is the source tile
 // b is the newly created tile
@@ -58,9 +32,6 @@ void	connect_tiles(t_tile* a, t_tile* b, const int direction) {
 	// direction is inbetween 0 and 5
 	const int opposite_direction = get_opposite_direction(direction);
 
-	if (!a) {
-		print_tile(b);
-	}
 	a->neighbours[direction] = b;
 	if (!b)
 		return;
@@ -82,7 +53,7 @@ void	spawn_new_ring(const size_t ringsize) {
 		connect_tiles(start, g_field.corners[x], x);
 		link_neighbours(start, g_field.corners[x], x);
 
-		for (int walk = 0; walk < ringsize - 2; ++walk) {
+		for (int walk = 0; walk < (int)ringsize - 2; ++walk) {
 			// rondje
 			int x1 = (x + 1) % 6;
 			t_tile	*huisje = create_tile();
@@ -92,11 +63,11 @@ void	spawn_new_ring(const size_t ringsize) {
 			start = start->neighbours[(x + 2) % 6];
 		}
 	}
-//	link_neighbours(old_corners[0], g_field.corners[0], 0);
+	link_neighbours(first_oldcorner, g_field.corners[0], 0);
 }
 
 
-int	create_first_ring(const size_t ringsize) {
+int	create_first_ring() {
 	for (int dir = 0; dir < 6; ++dir) {
 		t_tile *new_tile = create_tile();
 		connect_tiles(g_field.center, new_tile, dir);
@@ -116,7 +87,7 @@ int	init_field() {
 	g_field.gravity = 3;
 
 	g_field.center = create_tile();
-	create_first_ring(2);
+	create_first_ring();
 	for (; size < 6; ++size) {
 		spawn_new_ring(size);
 	}
