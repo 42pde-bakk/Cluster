@@ -3,6 +3,5 @@
 
 int main() {
 	init_field();
-	printf("hello world\n");
 	return 0;
 }
