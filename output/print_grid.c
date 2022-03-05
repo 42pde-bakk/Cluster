@@ -10,7 +10,7 @@
 #define MAG   "\x1B[35m"
 #define CYN   "\x1B[36m"
 #define WHT   "\x1B[37m"
-#define GRY   "\x1B[30m"
+#define GRY   "\x1B[90m"
 #define RESET "\x1B[0m"
 
 void    print_grid(void)
@@ -27,6 +27,10 @@ void    print_grid(void)
             printf(RED "%c", c);
         else if (c == '|' || c == 'v')
             printf(GRY "%c", c);
+        else if (c == 'A')
+            printf(GRN "%c", c);
+        else if (c == 'B')
+            printf(BLU "%c", c);
         else
             printf(WHT "%c", c);
     } 
