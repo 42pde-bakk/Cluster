@@ -12,6 +12,8 @@
 #define WHT   "\x1B[37m"
 #define GRY   "\x1B[90m"
 #define RESET "\x1B[0m"
+#define COLOR_A "\x1B[32m"
+#define COLOR_B "\x1B[34m"
 
 void    print_grid(void)
 {
@@ -28,9 +30,9 @@ void    print_grid(void)
         else if (c == '|' || c == 'v')
             printf(GRY "%c", c);
         else if (c == 'A')
-            printf(GRN "%c", c);
+            printf(COLOR_A "%c", c);
         else if (c == 'B')
-            printf(BLU "%c", c);
+            printf(COLOR_B "%c", c);
         else
             printf(WHT "%c", c);
     } 
