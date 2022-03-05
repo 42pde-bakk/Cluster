@@ -4,45 +4,121 @@
 
 #include "cluster.h"
 
-t_field field;
+t_field g_field;
+
+//t_tile	*tile_arr[100];
+
+
+int	get_n(const t_tile *t, const int dir) {
+	if (t->neighbours[dir]) {
+		return (t->neighbours[dir]->idx);
+	}
+	return (-1);
+}
+
+void	print_tile(const t_tile *t) {
+	printf("tile %d, neighbours: D:%d, DL:%d, UL:%d, U:%d, UR:%d, DR: %d\n", t->idx,
+		   get_n(t, 0), get_n(t, 1), get_n(t, 2), get_n(t, 3), get_n(t, 4), get_n(t, 5)
+	);
+}
 
 static t_tile	*create_tile() {
+	static int idx = 0;
+
 	t_tile	*tile = calloc(1, sizeof(t_tile));
 	if (!tile)
 		exit(1);
+//	tile_arr[idx] = tile;
+	tile->idx = idx++;
 	return (tile);
 }
 
-static t_tile	**create_tiles(const size_t amount) {
-	t_tile	**tiles = calloc(amount, sizeof(t_tile));
-	if (!tiles)
-		exit(1);
-	return (tiles);
-}
-
-void	connect_tiles(t_tile* a, t_tile* b, int direction) {
-	// direction is inbetween 0 and 5
-	const int opposite_direction = (direction + 3) % 6;
-
-	a->neighbours[direction] = b;
-	if (b)
-		b->neighbours[opposite_direction] = a;
-}
-
-int	create_ring(const size_t ringsize) {
-	t_tile	**new_ring = create_tiles(6 * (ringsize - 1));
-
-	for (int dir = 0; dir < 6; ++dir) {
-		connect_tiles(field.center, new_ring[dir], dir);
+// a is the source tile
+// b is the newly created tile
+// direction is the dir from a to b
+void	link_neighbours(t_tile* a, t_tile* b, const int direction) {
+	// link forwards
+	const int next_dir = get_next_direction(direction);
+	t_tile	*neighbour = a->neighbours[next_dir];
+	if (neighbour) {
+		int link_dir = get_next_direction(next_dir);
+		b->neighbours[link_dir] = neighbour;
+		neighbour->neighbours[get_opposite_direction(link_dir)] = b;
 	}
-	// TODO: still need to connect the invididual new tiles with each other
+	const int prev_dir = get_previous_direction(direction);
+	neighbour = a->neighbours[prev_dir];
+	if (neighbour) {
+		int link_dir = get_previous_direction(prev_dir);
+		b->neighbours[link_dir] = neighbour;
+		neighbour->neighbours[get_opposite_direction(link_dir)] = b;
+	}
+}
 
+void	connect_tiles(t_tile* a, t_tile* b, const int direction) {
+	// direction is inbetween 0 and 5
+	const int opposite_direction = get_opposite_direction(direction);
+
+	if (!a) {
+		print_tile(b);
+	}
+	a->neighbours[direction] = b;
+	if (!b)
+		return;
+	b->neighbours[opposite_direction] = a;
+}
+
+void	set_corners() {
+	for (int i = 0; i < 6; ++i)
+		g_field.corners[i] = g_field.center->neighbours[i];
+}
+
+void	spawn_new_ring(const size_t ringsize) {
+	t_tile *first_oldcorner = g_field.corners[0];
+	// pak de bovenste tile
+//	int x = 0;
+	for (int x = 0; x < 6; ++x) {
+		t_tile	*start = g_field.corners[x];
+		g_field.corners[x] = create_tile();
+		connect_tiles(start, g_field.corners[x], x);
+		link_neighbours(start, g_field.corners[x], x);
+
+		for (int walk = 0; walk < ringsize - 2; ++walk) {
+			// rondje
+			int x1 = (x + 1) % 6;
+			t_tile	*huisje = create_tile();
+			connect_tiles(start, huisje, x1);
+			link_neighbours(start, huisje, x1);
+
+			start = start->neighbours[(x + 2) % 6];
+		}
+	}
+//	link_neighbours(old_corners[0], g_field.corners[0], 0);
+}
+
+
+int	create_first_ring(const size_t ringsize) {
+	for (int dir = 0; dir < 6; ++dir) {
+		t_tile *new_tile = create_tile();
+		connect_tiles(g_field.center, new_tile, dir);
+		link_neighbours(g_field.center, new_tile, dir);
+	}
+	set_corners();
+	// TODO: still need to connect the invididual new tiles with each other
+	print_tile(g_field.center);
+	printf("\n");
+	print_tile(g_field.center->neighbours[0]);
+	print_tile(g_field.center->neighbours[1]);
+	return (0);
 }
 
 int	init_field() {
-	field.gravity = 1;
+	size_t size = 3;
+	g_field.gravity = 3;
 
-	field.center = create_tile();
-	create_ring(2);
-//6 * (size - 1)
+	g_field.center = create_tile();
+	create_first_ring(2);
+	for (; size < 6; ++size) {
+		spawn_new_ring(size);
+	}
+	return (0);
 }
