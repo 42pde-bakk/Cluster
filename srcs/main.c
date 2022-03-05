@@ -15,3 +15,5 @@ int main() {
 //	}
 	return 0;
 }
+
+//gcc main.c -I ../include field/*.c ../output/*.c                                                                                                       master 
