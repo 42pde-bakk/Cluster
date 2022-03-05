@@ -29,8 +29,9 @@ void    print_grid(void)
     } 
 }
 
-// int main(void)
-// {
-//     print_grid();
-//     return (1);
-// }
+int main(void)
+{
+    print_grid();
+    printf("\n");
+    return (1);
+}
