@@ -8,7 +8,6 @@ t_field g_field;
 t_tile	*tile_arr[TILES_AMOUNT];
 
 
-
 // a is the source tile
 // b is the newly created tile
 // direction is the dir from a to b
@@ -56,7 +55,7 @@ void	spawn_new_ring(const size_t ringsize) {
 		link_neighbours(start, g_field.corners[x], x);
 
 		for (int walk = 0; walk < (int)ringsize - 2; ++walk) {
-			// rondje
+			// huisje
 			int x1 = (x + 1) % 6;
 			t_tile	*huisje = create_tile();
 			connect_tiles(start, huisje, x1);
@@ -76,7 +75,7 @@ int	create_first_ring() {
 		link_neighbours(g_field.center, new_tile, dir);
 	}
 	set_corners();
-	// TODO: still need to connect the invididual new tiles with each other
+	// TODO: still need to connect the invididual new tiles with each other --> this is done now
 	print_tile(g_field.center);
 	printf("\n");
 	print_tile(g_field.center->neighbours[0]);
