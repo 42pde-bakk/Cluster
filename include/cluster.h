@@ -19,6 +19,7 @@ typedef enum s_dir {
 }	t_dir;
 
 typedef struct s_tile {
+	int		idx;
 	char	value;
 	char*	color;
 	int		printed;
@@ -32,6 +33,14 @@ typedef struct	s_field {
 	t_tile	*center;
 }	t_field;
 
-extern t_field field;
+extern t_field g_field;
+
+int	init_field();
+
+// directions.c
+int	get_previous_direction(int dir);
+int get_next_direction(int dir);
+int get_opposite_direction(int dir);
+int get_link_direction(int dir);
 
 #endif //CLUSTER_CLUSTER_H
