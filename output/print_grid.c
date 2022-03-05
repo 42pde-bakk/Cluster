@@ -12,10 +12,9 @@
 #define WHT   "\x1B[37m"
 #define GRY   "\x1B[90m"
 #define RESET "\x1B[0m"
-#define COLOR_A "\x1B[32m"
-#define COLOR_B "\x1B[34m"
 
-void    print_grid(void)
+
+void    print_grid(char col1, char col2)
 {
     FILE *grid = fopen("grid5.txt", "r");
     char c;
@@ -30,9 +29,31 @@ void    print_grid(void)
         else if (c == '|' || c == 'v')
             printf(GRY "%c", c);
         else if (c == 'A')
-            printf(COLOR_A "%c", c);
+        {
+            if (col1 == 'r')
+                printf(RED "%c", c);
+            else if (col1 == 'y')
+                printf(YEL "%c", c);
+            else if (col1 == 'g')
+                printf(GRN "%c", c);
+            else if (col1 == 'b')
+                printf(BLU "%c", c);
+            else
+                printf(WHT "%c", c);
+        }
         else if (c == 'B')
-            printf(COLOR_B "%c", c);
+        {
+            if (col2 == 'r')
+                printf(RED "%c", c);
+            else if (col2 == 'y')
+                printf(YEL "%c", c);
+            else if (col2 == 'g')
+                printf(GRN "%c", c);
+            else if (col2 == 'b')
+                printf(BLU "%c", c);
+            else
+                printf(WHT "%c", c);
+        }
         else
             printf(WHT "%c", c);
     } 
@@ -40,7 +61,7 @@ void    print_grid(void)
 
 int main(void)
 {
-    print_grid();
+    print_grid('g', 'b');
     printf("\n");
     return (1);
 }
