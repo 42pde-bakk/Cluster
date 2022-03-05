@@ -26,7 +26,6 @@ void	print_arr() {
 static void	add_to_arr() {
 	int id = tile_order[read_idx];
 	++read_idx;
-	printf("id = %d\n", id);
 	assert(tile_arr[id]);
 	t_tile	*left_neighbour = tile_arr[id]->neighbours[4];
 	if (left_neighbour && not_in_arr(left_neighbour->idx)) { // get left neighbour
@@ -64,5 +63,4 @@ void	get_indices(int antigravity) {
 	for (int i = 0; i < TILES_AMOUNT; ++i) {
 		add_to_arr();
 	}
-	print_arr();
 }
