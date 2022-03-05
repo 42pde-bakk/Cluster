@@ -25,6 +25,6 @@ t_tile	*create_tile() {
 		exit(1);
 	tile_arr[idx] = tile;
 	tile->idx = idx++;
-	tile->tile_colour = (tile->idx % 5);
+	tile->tile_colour = 0;
 	return (tile);
 }
