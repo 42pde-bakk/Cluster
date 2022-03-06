@@ -66,6 +66,7 @@ void	get_indices();
 void   rotate_field(int direction);
 
 // srcs/field/drop_tile.c
+void    drop_downwards(t_tile *tile);
 void    get_drop_tile(int pos, int colour);
 
 #endif //CLUSTER_CLUSTER_H
