@@ -26,6 +26,7 @@ int main() {
 		}
 		//read command
 		print_grid_terminal(col1, col2);
+		bzero(command, sizeof(command));
 		scanf("%s %d", command, &nb);
 		//if the command given starts with A, B or R, see it as a valid command and (later: update the field), print the field and change the turn to the other player
 		if (strncmp(command, "D", 1) == 0) {
@@ -33,7 +34,8 @@ int main() {
 			// player 0 will drop colour 1 or 2 (0 = empty)
 			// player 1 will drop colour 3 or 4
 		}
-		else if (strncmp(command, "R", 1)) {
+		else if (strncmp(command, "R", 1) == 0) {
+			printf("in here!\n");
 			rotate_field(nb);
 		}
 		player = !player;
