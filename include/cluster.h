@@ -60,6 +60,6 @@ int get_link_direction(int dir);
 void    print_grid_terminal(char col1, char col2);
 
 // srcs/field/tileorder.c
-void	get_indices(int antigravity);
+void	get_indices();
 
 #endif //CLUSTER_CLUSTER_H
