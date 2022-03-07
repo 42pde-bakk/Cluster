@@ -6,7 +6,7 @@
 /*   By: jaberkro <jaberkro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 12:24:29 by jaberkro      #+#    #+#                 */
-/*   Updated: 2022/03/07 14:42:27 by jaberkro      ########   odam.nl         */
+/*   Updated: 2022/03/07 14:59:55 by jaberkro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ void play_turn(bool turn, t_players *players)
 
     // let the player choose the input
     bzero(command, 3000);
-    scanf("%s", command);
-    // if (command[0] != 'A' || command[0] != 'B' || command[0] != 'R' || command[1] - 48 < 0 || command[1] - 48 > 9)
-    //     play_turn(turn, players);
-    // assert(command[0] == 'A' || command[0] == 'B' || command[0] == 'R');
-    // assert(0 < command[1] - 48 && command[1] - 48 < 10);
-    printf("command=%s, turn = %d, colours: %d, %d\n", command, turn, players->p[turn].col1, players->p[turn].col2);
+    while ((command[0] != 'A' && command[0] != 'B' && command[0] != 'R' ) || (command[1] - 48 < 0 && command[1] - 48 > 9))
+        scanf("%s", command);
+    //printf("command=%s, turn = %d, colours: %d, %d\n", command, turn, players->p[turn].col1, players->p[turn].col2);
     if (command[0] == 'A')
     {
         get_drop_tile(command[1] - 48, players->p[turn].col1);
@@ -45,10 +42,6 @@ void play_turn(bool turn, t_players *players)
     else if (command[0] == 'R') {
         printf("let's rotate!\n");
         rotate_field(command[1] - 48);
-    }
-    else
-    {
-        play_turn(turn, players);
     }
 
     // show result

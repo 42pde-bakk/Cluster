@@ -16,6 +16,7 @@ int main() {
 	{
 		printf("turn: %d\n", player_turn);
 		play_turn(player_turn, players);
+		//check of gewonnen
 		player_turn = !player_turn;
 		//read command
 		//print_grid_terminal(players->p[player_turn].col1, players->p[player_turn].col2);
