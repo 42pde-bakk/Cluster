@@ -14,8 +14,7 @@
 
 int neighbour_colour_check(const t_tile *current_tile, int direction)
 {
-	if (current_tile->neighbours[direction]) 
-	{
+	if (current_tile->neighbours[direction]) {
 		if (current_tile->tile_colour == current_tile->neighbours[direction]->tile_colour)
 			return (1);
 	}
@@ -26,24 +25,18 @@ int direction_check(const t_tile *current_tile, int direction)
 {
 	int	number_of_same_tiles = 0;
 	
-	while (current_tile)
-	{
-		if (neighbour_colour_check(current_tile, direction))
-		{
-			number_of_same_tiles++;
-			current_tile = current_tile->neighbours[direction];
-		}
+	while (current_tile && neighbour_colour_check(current_tile, direction)) {
+		number_of_same_tiles++;
+		current_tile = current_tile->neighbours[direction];
 	}
 	return (number_of_same_tiles);
 }
 
-int	win_check_this_tile(const t_tile *current_tile, int set_row_length)
-{
+int	win_check_this_tile(const t_tile *current_tile, int set_row_length) {
 	int direction = 0;	
 	
-	while (direction < 3)
-	{
-		int nb = direction_check(current_tile, direction) +
+	while (direction < 3) {
+		int nb = 1 + direction_check(current_tile, direction) +
 				direction_check(current_tile, get_opposite_direction(direction));
 		if (nb >= set_row_length) {
 			// 4 in a row, there is a winner!
@@ -54,15 +47,16 @@ int	win_check_this_tile(const t_tile *current_tile, int set_row_length)
 	return (0);
 }
 
-int	win_check_all_tiles(int set_row_length)
-{
+int	win_check_all_tiles(int set_row_length) {
 	int i = 0;
 	while (tile_arr[i])
 	{
+		printf("checking tile:\n");
+		print_tile(tile_arr[i]);
 		if (tile_arr[i]->tile_colour)
 		{
 			if (win_check_this_tile(tile_arr[i], set_row_length))
-				return(tile_arr[i]->tile_colour);
+				return (tile_arr[i]->tile_colour);
 		}
 		i++;
 	}
