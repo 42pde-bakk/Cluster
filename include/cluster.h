@@ -67,7 +67,7 @@ size_t	get_size(size_t ringsize);
 void   rotate_field(int direction);
 
 // srcs/field/drop_tile.c
-void    drop_downwards(t_tile *tile);
-void    get_drop_tile(int pos, int colour);
+const t_tile * drop_downwards(t_tile *tile);
+const t_tile * get_drop_tile(int pos, int colour);
 
 #endif //CLUSTER_CLUSTER_H
