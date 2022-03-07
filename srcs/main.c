@@ -12,7 +12,7 @@ int main(void) {
 	while (1)
 	{
 		//print grid to show options for player
-    	print_grid_terminal(players->p[turn].col1, players->p[turn].col2);
+    	print_grid_terminal(players->p[player_turn].col1, players->p[player_turn].col2);
 
 		//player plays their turn
 		play_turn(player_turn, players);
