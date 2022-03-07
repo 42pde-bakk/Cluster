@@ -10,20 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLUSTER_PROCESS_H
-#define CLUSTER_PROCESS_H
+#ifndef CLUSTER_PLAYER_H
+#define CLUSTER_PLAYER_H
 
-#include <sys/types.h>
-#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
-
 # include "cluster.h"
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <stdbool.h>
+#include "move.h"
 
 #define MAX_PLAYER 2
 
@@ -33,21 +26,26 @@ typedef struct s_player
 	int stdin[2];
 	int stdout[2];
 	FILE* reader;
-	int col1;
-	int col2;
-	size_t amount1;
-	size_t amount2;
+
+	int		col[2];
+	size_t	amount[2];
 } t_player;
-
-int init_player_process(const char* path, t_player* player);
-
 
 typedef struct s_players {
     t_player    p[2];
     bool        turn;
 }   t_players;
 
+// srcs/player/input.c
+t_move	player_request_input(t_player *player);
+// srcs/player/process.c
+int init_player_process(const char* path, t_player* player);
+
+// srcs/player/player.c
 t_players       *init_players(int ringsize);
-const t_tile    *play_turn(bool turn, t_players *players);
+
+// srcs/player/inventory.c
+void	generate_random_colours(t_player *player, int *col_a, int *col_b);
+int		update_inventory(t_player* player, int colour_index);
 
 #endif
