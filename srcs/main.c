@@ -4,12 +4,28 @@
 #include <stdio.h>
 #include <string.h>
 
+void print_rules()
+{
+	printf("Cluster\n\n\
+How to play:\n \
+Type your preffered type of color (A/B) followed by a number from 1 - 9. \
+Afterwards you will see a ball drop.\n \
+Connect four of these balls to win!\n \
+You can use R followed by a number to rotate the board in your favour!\n \
+Good luck!\n");
+}
+
 int main(int argc, char **argv) {
 	int		ringsize = 5;
 	int 	winner = -1;
 	int		winning_row_length = 4;
 
 	(void)argc;
+	if (argc == 2 && strcmp(argv[1], "--help") == 0)
+	{
+		print_rules();
+		exit(0);
+	}
 	t_players *players = init_players(ringsize);
 	for (int p = 0; p < MAX_PLAYER && argv[p + 1]; ++p) {
 		init_player_process(argv[p + 1], &players->p[p]);
