@@ -9,7 +9,7 @@ const t_tile * drop_downwards(t_tile *tile) {
     const int   grav = g_field.gravity;
     t_tile      *down = tile->neighbours[grav];
 
-    print_grid_terminal(0, 0);
+    print_grid_terminal(-1, -1);
     usleep(200000);
     if (down && down->tile_colour == 0) {
         down->tile_colour = tile->tile_colour;
