@@ -26,10 +26,9 @@ void put_hex(int x, int y, char *data)
 	edit_buf(x - 5, y + 2,	data, "\\______/");
 }
 
-char *generated(int count)
+char *generated(int len)
 {
-	if (count == 2) // not possible
-		return 0;
+	int count = len * 2 - 1;
 	char data[10001];
 	data[10000] = 0;
 
@@ -42,13 +41,12 @@ char *generated(int count)
 	// 1: 7
 	// 2:
 	// int center = 7 + (count - 1) * 8;
-	int center = 7 + ((count - 1) / 2 * 8);
+	int center = 7 + ((len - 1) * 8);
 	int startDeclineEven = -1, startDeclineOdd  = -1;
 	int curXEven = 0, curXOdd = 0;
 	int inclineEven = 1, inclineOdd = 1;
 
 	size_t y = 0;
-	center = 50;
 	for (; y < count * 2; y += 1)
 	{
 		size_t x = 0, endX;
