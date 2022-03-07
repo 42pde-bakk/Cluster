@@ -6,7 +6,7 @@
 /*   By: jaberkro <jaberkro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 11:32:19 by jaberkro      #+#    #+#                 */
-/*   Updated: 2022/03/07 12:26:21 by jaberkro      ########   odam.nl         */
+/*   Updated: 2022/03/07 15:31:00 by jaberkro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,3 @@ t_players   *init_players(int ringsize)
     players->turn = 0;
     return (players);
 }
-
-// int main(void)
-// {
-//     t_players *players = create_players(5);
-
-//     printf("[%d, %d, %zu, %zu]\n", players->p[0].col1, players->p[0].col2, players->p[0].amount1, players->p[0].amount2);
-//     printf("[%d, %d, %zu, %zu]\n", players->p[1].col1, players->p[1].col2, players->p[1].amount1, players->p[1].amount2);
-//     //printf("[%d, %d, %zu, %zu]\n", players->player2.col1, players->player2.col2, players->player2.amount1, players->player2.amount2);
-//     return (0);
-// }
-
