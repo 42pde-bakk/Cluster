@@ -32,7 +32,7 @@ void    let_fall() {
         for (int i = 0; i < 9; ++i) {
             if (bottoms[i]) {
                 movement = true;
-                if (bottoms[i]->tile_colour && bottoms[i]->alive) {
+                if (bottoms[i]->tile_colour > 0) {
                     drop_downwards(bottoms[i]);
                 }
                 bottoms[i] = bottoms[i]->neighbours[antigrav];
