@@ -54,7 +54,6 @@ int main()
 			int	col2;
 			scanf("%d %d %d %d %d", &cell_index, &colour, &_is_mine, &col1, &col2);
 		}
-		dprintf(2, "bot: after turn info\n");
 		// Write an action using printf(). DON'T FORGET THE TRAILING \n
 		// To debug: fprintf(stderr, "Debug messages...\n");
 
