@@ -6,7 +6,7 @@
 /*   By: jaberkro <jaberkro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 11:32:19 by jaberkro      #+#    #+#                 */
-/*   Updated: 2022/03/07 12:21:19 by jaberkro      ########   odam.nl         */
+/*   Updated: 2022/03/07 12:26:21 by jaberkro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_player init_player(int col1, int col2, int ringsize)
     return (player);
 }
 
-t_players   *create_players(int ringsize)
+t_players   *init_players(int ringsize)
 {
     t_players   *players = calloc(1, sizeof(t_players));
 
