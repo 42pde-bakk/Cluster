@@ -28,6 +28,8 @@ void put_hex(int x, int y, char *data)
 
 char *generated(int count)
 {
+	if (count == 2) // not possible
+		return 0;
 	char data[10001];
 	data[10000] = 0;
 
@@ -40,22 +42,19 @@ char *generated(int count)
 	// 1: 7
 	// 2:
 	// int center = 7 + (count - 1) * 8;
-	int center = 50;
+	int center = 7 + ((count - 1) / 2 * 8);
 	int startDeclineEven = -1, startDeclineOdd  = -1;
-	float maxEven = floor(count / 4);
-	float maxOdd = floor(count / 4);
 	int curXEven = 0, curXOdd = 0;
 	int inclineEven = 1, inclineOdd = 1;
 
-	printf("MAX: %f, %f\n", maxEven, maxOdd);
-
-	for (size_t y = 0; y < count * 2; y += 1)
+	size_t y = 0;
+	center = 50;
+	for (; y < count * 2; y += 1)
 	{
 		size_t x = 0, endX;
 
 		if (y == startDeclineEven)
 			inclineEven = -1;
-
 		if (y == startDeclineOdd)
 			inclineOdd = -1;
 
@@ -65,24 +64,22 @@ char *generated(int count)
 			endX = curXEven;
 			if (curXEven * 4 + 1 > count)
 			{
+				printf("EVEN TRIGGER\n");
 				inclineEven = 0;
 				if (startDeclineEven == -1)
 					startDeclineEven = count * 2 - y;
-				// inclineOdd = 0;
-				// if (startDeclineOdd == -1)
-				// 	startDeclineOdd = count * 2 - y;
 			}
 		}
 		else
 		{
-			curXOdd += inclineOdd;
-			endX = curXOdd;
-			if (((curXOdd + 1) * 4) - 1 > count)
+			if (inclineOdd == 1 && (curXOdd + 1) * 2 + ((curXOdd) * 2) > count)
 			{
 				inclineOdd = 0;
 				if (startDeclineOdd == -1)
-					startDeclineOdd = count * 2 - y;
+					startDeclineOdd = count * 2 - (y - 1);
 			}
+			curXOdd += inclineOdd;
+			endX = curXOdd;
 		}
 
 		for (; x < endX; x++)
@@ -98,20 +95,13 @@ char *generated(int count)
 					break;
 				xPos = 8 + x * 16;
 			}
-			printf("XPOS %d %d %d %d\n",y, xPos, curXEven, inclineEven);
-			// if (x / 2 < endX / 2)
-			// 	xPos = center - xPos;
-			// else
-			// 	xPos = center + xPos;
-			put_hex(center - xPos, (y * 2) + 10, data);
-			put_hex(center + xPos, (y * 2) + 10, data);
-
+			printf("XPOS %d %d %d\n",y, xPos, curXEven, inclineEven);
+			put_hex(center - xPos, (y * 2) + 2, data);
+			put_hex(center + xPos, (y * 2) + 2, data);
 		}
 	}
-	
-	
-
-	printf("$%s\n", data);
+	data[(y * 2 + 1) * 100] = '\0';
+	printf("%s\n", data);
 }
 
 int main(int argc, char **argv)
