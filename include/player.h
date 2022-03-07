@@ -6,7 +6,7 @@
 /*   By: jaberkro <jaberkro@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 11:27:50 by jaberkro      #+#    #+#                 */
-/*   Updated: 2022/03/07 12:16:42 by jaberkro      ########   odam.nl         */
+/*   Updated: 2022/03/07 12:45:09 by jaberkro      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ typedef struct s_players {
     t_player    p[2];
     bool        turn;
 }   t_players;
+
+t_players   *init_players(int ringsize);
+void play_turn(bool turn, t_players *players);
+
 
 #endif
