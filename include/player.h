@@ -15,16 +15,16 @@
 
 #include <stdio.h>
 #include <assert.h>
-# include "cluster.h"
+#include "cluster.h"
 #include "move.h"
 
 #define MAX_PLAYER 2
 
-typedef struct s_player
-{
-	pid_t pid;
-	int stdin[2];
-	int stdout[2];
+typedef struct s_player {
+	int		idx;
+	pid_t	pid;
+	int _stdin[2];
+	int _stdout[2];
 	FILE* reader;
 
 	int		col[2];
@@ -47,5 +47,9 @@ t_players       *init_players(int ringsize);
 // srcs/player/inventory.c
 void	generate_random_colours(t_player *player, int *col_a, int *col_b);
 int		update_inventory(t_player* player, int colour_index);
+
+// srcs/player/output.c
+void	send_game_info(const t_player *player);
+void	send_turn_info(const t_player *player, int turn, int col1, int col2);
 
 #endif
