@@ -5,13 +5,15 @@
 #include "player.h"
 #include "move.h"
 #include <string.h>
+#include <ctype.h>
+#include "colours.h"
 
-static t_move parse_input(const char* input_str, const int value) {
+static t_move parse_input(const char input, const int value) {
 	static const char*	strs[] = {
 			"ALPHA", "BETA", "ROTATE", "\0"
 	};
-	for (size_t i = 0; i < sizeof(strs); ++i) {
-		if (strncmp(input_str, strs[i], 1) == 0)
+	for (size_t i = 0; i < sizeof(strs) / 8; ++i) {
+		if (input == strs[i][0])
 			return (t_move) {
 				.type = (e_movetype)i,
 				.value = value
@@ -20,22 +22,41 @@ static t_move parse_input(const char* input_str, const int value) {
 	return (error_move());
 }
 
-int	is_valid(const char* type, const int value) {
-	return ((type[0] == 'A' || type[0] == 'B' || type[0] == 'R') && type[1] == 0 && (0 < value && value < 9));
+int	is_valid(const char type, const int value) {
+	if ((type == 'A' || type == 'B' || type == 'R') == 0)
+	{
+		printf(_YELLOW);
+		printf("Error: '%c' not a valid character\n", type);
+		printf(_WHITE);
+		return 0;
+	}
+	if ((value <= 0 || value >= 10))
+	{
+		printf(_YELLOW);
+		printf("Error: '%d' not a valid row\n", value);
+		printf(_WHITE);
+		return 0;
+	}
+	printf(_YELLOW);
+	printf("Valid!\n");
+	printf(_WHITE);
+	return (1);
 }
 
 t_move	player_request_input(t_player *player) {
-	char	movetype[100] = {0};
-	char	movevalue[100] = {0};
+	char	movechar = 0;
+	char	movebuf[1024] = {0};
 	int		value = 0;
 
 	(void)player;
-	while (!is_valid(movetype, value)) {
-		fscanf(player->reader, "%s %s", movetype, movevalue);
-		dprintf(2, "movetype='%s', movevalue='%s'\n", movetype, movevalue);
-		value = (int)strtol(movevalue, NULL, 10);
-	}
-	t_move	move = parse_input(movetype, value);
+	do
+	{
+		if (fscanf(player->reader, "%s %d", movebuf, &value) == -1)
+			continue;
+		movechar = toupper(movebuf[0]);
+	} while (!is_valid(movechar, value));
+
+	t_move	move = parse_input(movechar, value);
 	print_move(STDERR_FILENO, &move);
 	return (move);
 }
