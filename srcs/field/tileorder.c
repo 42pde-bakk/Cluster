@@ -56,8 +56,8 @@ static void	clear_arr() {
 
 void	get_indices() {
 	int antigravity = get_opposite_direction(g_field.gravity);
-	int	left_child_dir = (antigravity + 4) % 6,
-		right_child_dir = (antigravity + 2) % 6;
+	int	left_child_dir = get_next_direction(g_field.gravity),
+		right_child_dir = get_previous_direction(g_field.gravity);
 
 	clear_arr();
 	tile_order[0] = g_field.corners[antigravity]->idx;
