@@ -5,7 +5,7 @@
 #include "cluster.h"
 #include <assert.h>
 
-void    drop_downwards(t_tile *tile) {
+const t_tile * drop_downwards(t_tile *tile) {
     const int   grav = g_field.gravity;
     t_tile      *down = tile->neighbours[grav];
 
@@ -14,11 +14,12 @@ void    drop_downwards(t_tile *tile) {
     if (down && down->tile_colour == 0) {
         down->tile_colour = tile->tile_colour;
         tile->tile_colour = 0;
-        drop_downwards(down);
+        return (drop_downwards(down));
     }
+    return (tile);
 }
 
-void    get_drop_tile(int pos, int colour) {
+const t_tile * get_drop_tile(int pos, int colour) {
     // assuming 1 is the leftmost drop you can make
     const int upwards = get_opposite_direction(g_field.gravity);
     t_tile  *drop_tile = g_field.corners[upwards];
@@ -43,14 +44,15 @@ void    get_drop_tile(int pos, int colour) {
     if (drop_tile->tile_colour) {
         // has already been filled
         printf("Damn son, the tile you chose already is filled, what a shitty move!\n");
-        return ;
+        return (NULL);
     }
     if (!drop_tile->alive) {
         printf("how are you gonna drop your tile right onto a dead one?\n");
-        return;
+        return (NULL);
     }
     drop_tile->tile_colour = colour;
     printf("colour = %d\n", colour);
     drop_downwards(drop_tile);
+    return (drop_tile);
 }
 
