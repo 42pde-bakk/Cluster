@@ -15,10 +15,12 @@
 
 t_player init_player(int col1, int col2, int ringsize)
 {
+	static		int idx = 0;
 	size_t      amount = get_size(ringsize) / 4;
     t_player    player = {
 		.col = { col1, col2 },
 		.amount = { amount, amount },
+		.idx = idx++
     };
     player.reader = stdin;
     return (player);

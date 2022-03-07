@@ -37,6 +37,7 @@
 *.hex
 cluster
 client
+bot
 
 # Debug files
 *.dSYM/
