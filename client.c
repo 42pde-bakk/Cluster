@@ -16,7 +16,7 @@ int main() {
 		if (getline(&line, &bytes, stdin) == -1) {
 			exit(1);
 		}
-		printf("given input = '%s'\n", line);
+		dprintf(1, "given input = '%s'\n", line);
 		free(line);
 	}
 }

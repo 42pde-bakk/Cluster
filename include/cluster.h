@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include "move.h"
 
 #define TILES_AMOUNT 61
 
@@ -64,11 +65,11 @@ void	get_indices();
 size_t	get_size(size_t ringsize);
 
 // srcs/field.rotate.c
-void   rotate_field(int direction);
+const t_tile *rotate_field(const t_move *move);
 
 // srcs/field/drop_tile.c
 const t_tile *drop_downwards(t_tile *tile);
-const t_tile *get_drop_tile(int pos, int colour);
+const t_tile *get_drop_tile(const t_move *move);
 
 //winning fucncs
 int	win_check_all_tiles(int set_row_length);
