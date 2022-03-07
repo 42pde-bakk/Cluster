@@ -5,6 +5,7 @@
 #include "player.h"
 #include "move.h"
 #include <string.h>
+#include <ctype.h>
 
 static t_move parse_input(const char* input_str, const int value) {
 	static const char*	strs[] = {
@@ -20,7 +21,8 @@ static t_move parse_input(const char* input_str, const int value) {
 	return (error_move());
 }
 
-int	is_valid(const char* type, const int value) {
+int	is_valid(char* type, const int value) {
+	type[0] = toupper(type[0]);
 	return ((type[0] == 'A' || type[0] == 'B' || type[0] == 'R') && type[1] == 0 && (0 < value && value < 9));
 }
 
