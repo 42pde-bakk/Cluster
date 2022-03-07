@@ -9,7 +9,7 @@ const t_tile * drop_downwards(t_tile *tile) {
     const int   grav = g_field.gravity;
     t_tile      *down = tile->neighbours[grav];
 
-    print_grid_terminal();
+    print_grid_terminal(0, 0);
     usleep(200000);
     if (down && down->tile_colour == 0) {
         down->tile_colour = tile->tile_colour;
@@ -19,7 +19,7 @@ const t_tile * drop_downwards(t_tile *tile) {
     return (tile);
 }
 
-const t_tile * get_drop_tile(int pos, int colour) {
+const t_tile *get_drop_tile(int pos, int colour) {
     // assuming 1 is the leftmost drop you can make
     const int upwards = get_opposite_direction(g_field.gravity);
     t_tile  *drop_tile = g_field.corners[upwards];

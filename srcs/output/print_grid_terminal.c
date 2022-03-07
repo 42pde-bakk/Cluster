@@ -15,11 +15,13 @@
 #define GRY   "\x1B[90m"
 #define RESET "\x1B[0m"
 
-void    print_grid_terminal()
+void    print_grid_terminal(int opta, int optb)
 {
     FILE *grid = fopen("maps/grid5.txt", "r");
     get_indices(get_opposite_direction(g_field.gravity));
-    char	*items[5] = { WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, BLU"$$"RESET, CYN"&&"RESET };
+    char	*items_double[5] = { WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
+    char	*items_A[5] = { WHT"A"RESET, RED"A"RESET, YEL"A"RESET, GRN"A"RESET, BLU"A"RESET };
+    char	*items_B[5] = { WHT"B"RESET, RED"B"RESET, YEL"B"RESET, GRN"B"RESET, BLU"B"RESET };
     char    c;
     int     i = 0;
     
@@ -32,16 +34,16 @@ void    print_grid_terminal()
             ;
         else if (c == '{')
         {
-            printf("%s", items[tile_arr[tile_order[i]]->tile_colour]);
+            printf("%s", items_double[tile_arr[tile_order[i]]->tile_colour]);
             i++;
         }
         else if (c == '|' || c == 'v')
             printf(GRY "%c", c);
         else if (c == 'A') {
-            printf(RED "%c" RESET, c);
+            printf("%s", items_A[opta]);
         }
         else if (c == 'B') {
-            printf(BLU "%c" RESET, c);
+            printf("%s", items_B[optb]);
         }
         else
             printf(WHT "%c", c);
