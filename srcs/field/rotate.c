@@ -4,6 +4,7 @@
 
 #include "cluster.h"
 #include <assert.h>
+#include <move.h>
 
 t_tile  *bottoms[9];
 
@@ -40,10 +41,11 @@ void    let_fall() {
     }
 }
 
-void   rotate_field(int direction) {
-    assert(direction > 0 && direction < 6);
+const t_tile * rotate_field(const t_move *move) {
+	int value = move->value;
+    assert(value > 0 && value < 6);
     // if direction isn't within 1 and 5, this throws an error.
-    g_field.gravity = (g_field.gravity + direction) % 6;
+    g_field.gravity = (g_field.gravity + value) % 6;
 
     printf("gravity now is %d\n", g_field.gravity);
 
@@ -51,4 +53,5 @@ void   rotate_field(int direction) {
     let_fall();
 
     // No need to update the corners
+    return (NULL); //
 }

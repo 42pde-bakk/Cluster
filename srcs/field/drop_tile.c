@@ -19,14 +19,17 @@ const t_tile * drop_downwards(t_tile *tile) {
     return (tile);
 }
 
-const t_tile *get_drop_tile(int pos, int colour) {
+const t_tile *get_drop_tile(const t_move *move) {
     // assuming 1 is the leftmost drop you can make
+	print_move(2, move);
     const int upwards = get_opposite_direction(g_field.gravity);
+    int pos = move->value;
     t_tile  *drop_tile = g_field.corners[upwards];
     int start = 5; // because it's in the middle (check the figure Jorien made)
     int movedirection;
     int delta = 1;
-
+	dprintf(2, "drop_tile starts here:\n");
+	print_tile(drop_tile);
     if (pos < start) {
         movedirection = get_next_direction(g_field.gravity);
         delta = -1;
@@ -50,9 +53,8 @@ const t_tile *get_drop_tile(int pos, int colour) {
         printf("how are you gonna drop your tile right onto a dead one?\n");
         return (NULL);
     }
-    drop_tile->tile_colour = colour;
-    printf("colour = %d\n", colour);
-    drop_downwards(drop_tile);
-    return (drop_tile);
+    drop_tile->tile_colour = move->colour;
+    printf("colour = %d\n", move->colour);
+    return (drop_downwards(drop_tile));
 }
 

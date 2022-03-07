@@ -46,6 +46,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $(INCLUDE) $^ -o $@
 
+client: client.o
+	$(CC) $(CFLAGS) client.o -o $@
+
 clean:
 	/bin/rm -f $(OBJECTS)
 
