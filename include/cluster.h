@@ -57,9 +57,17 @@ int get_opposite_direction(int dir);
 int get_link_direction(int dir);
 
 // output/print_grid_terminal.c
-void    print_grid_terminal(char col1, char col2);
+void    print_grid_terminal();
 
 // srcs/field/tileorder.c
 void	get_indices();
+size_t	get_size(size_t ringsize);
+
+// srcs/field.rotate.c
+void   rotate_field(int direction);
+
+// srcs/field/drop_tile.c
+void    drop_downwards(t_tile *tile);
+void    get_drop_tile(int pos, int colour);
 
 #endif //CLUSTER_CLUSTER_H
