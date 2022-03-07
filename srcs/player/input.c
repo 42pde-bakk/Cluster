@@ -37,9 +37,6 @@ int	is_valid(const char type, const int value) {
 		printf(_WHITE);
 		return 0;
 	}
-	printf(_YELLOW);
-	printf("Valid!\n");
-	printf(_WHITE);
 	return (1);
 }
 

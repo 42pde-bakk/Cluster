@@ -8,7 +8,7 @@ void print_rules()
 {
 	printf("Cluster\n\n\
 How to play:\n \
-Type your letter (A/B) followed by a number from 1 - 9. \
+Type your preffered type of color (A/B) followed by a number from 1 - 9. \
 Afterwards you will see a ball drop.\n \
 Connect four of these balls to win!\n \
 You can use R followed by a number to rotate the board in your favour!\n \
