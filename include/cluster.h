@@ -70,4 +70,8 @@ void   rotate_field(int direction);
 const t_tile *drop_downwards(t_tile *tile);
 const t_tile *get_drop_tile(int pos, int colour);
 
+//winning fucncs
+int	win_check_all_tiles(int set_row_length);
+int	win_check_this_tile(const t_tile *current_tile, int set_row_length);
+
 #endif //CLUSTER_CLUSTER_H
