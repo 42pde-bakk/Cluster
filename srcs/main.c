@@ -11,8 +11,6 @@ int main(void) {
 	init_field();
 	while (1)
 	{
-		printf("turn: %d\n", player_turn);
-
 		//print grid to show options for player
     	print_grid_terminal(players->p[turn].col1, players->p[turn].col2);
 
