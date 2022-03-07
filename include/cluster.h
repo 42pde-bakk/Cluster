@@ -61,6 +61,7 @@ void    print_grid_terminal();
 
 // srcs/field/tileorder.c
 void	get_indices();
+size_t	get_size(size_t ringsize);
 
 // srcs/field.rotate.c
 void   rotate_field(int direction);
