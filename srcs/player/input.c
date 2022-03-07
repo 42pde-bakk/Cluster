@@ -59,7 +59,6 @@ t_move	player_request_input(t_player *player) {
 	(void)player;
 	do {
 		line_len = getline(&input_line, &line_cap, player->reader);
-		printf("%zu\n", line_len);
 		if (line_len >= 4 && input_line[1] == ' ')
 			movetype = toupper(input_line[0]);
 		value = (int)strtol(input_line + 2, NULL, 10);
