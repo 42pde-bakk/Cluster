@@ -27,7 +27,7 @@ void	child_close_pipes(t_player *player) {
 
 int init_player_process(const char* path, t_player* player) {
 	pid_t	pid;
-	const char	*argv[] = {path, "\0"};
+	const char	*argv[2] = {path, NULL};
 
 	assert(player != NULL);
 	init_pipes(player);
@@ -44,7 +44,7 @@ int init_player_process(const char* path, t_player* player) {
 //		ret = dup2(player->stdout[STDOUT_FILENO], STDOUT_FILENO);
 //		if (ret == -1 || ret != STDOUT_FILENO)
 //			fatal("dup2 (STDOUT): ");
-		if (execve(path, argv, NULL) == -1)
+		if (execve(path, (char *const *) argv, NULL) == -1)
 			fatal("execve:");
 	}
 	else {
