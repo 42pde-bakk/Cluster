@@ -6,6 +6,7 @@
 #include "move.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 
 static t_move parse_input(const char* input_str, const int value) {
 	static const char*	strs[] = {
@@ -29,11 +30,20 @@ int	is_valid(char* type, const int value) {
 t_move	player_request_input(t_player *player) {
 	char	movetype[100] = {0};
 	char	movevalue[100] = {0};
+	char	*input_line = NULL;
+	size_t	line_cap = 0;
+	size_t	line_len = 0;
 	int		value = 0;
 
 	(void)player;
 	while (!is_valid(movetype, value)) {
-		fscanf(player->reader, "%s %s", movetype, movevalue);
+		line_len = getline(&input_line, &line_cap, player->reader);
+		printf("%zu\n", line_len);
+		if (line_len == 4 && input_line[1] == ' ')
+		{
+			movetype[0] = input_line[0];
+			movevalue[0] = input_line[2];
+		}
 		dprintf(2, "movetype='%s', movevalue='%s'\n", movetype, movevalue);
 		value = (int)strtol(movevalue, NULL, 10);
 	}
