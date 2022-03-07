@@ -39,12 +39,10 @@ void    print_grid_terminal(int opta, int optb)
         }
         else if (c == '|' || c == 'v')
             printf(GRY "%c", c);
-        else if (c == 'A') {
+        else if (c == 'A') 
             printf("%s", items_A[opta + 1]);
-        }
         else if (c == 'B') {
             printf("%s", items_B[optb + 1]);
-        }
         else
             printf(WHT "%c", c);
     }
