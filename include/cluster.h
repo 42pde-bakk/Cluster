@@ -41,7 +41,7 @@ typedef struct	s_field {
 
 // sicke globals
 extern t_field	g_field;
-extern t_tile	*tile_arr[TILES_AMOUNT];
+extern t_tile	*tile_arr[TILES_AMOUNT + 1];
 extern int		tile_order[TILES_AMOUNT];
 
 // srcs/field/init_field.c
