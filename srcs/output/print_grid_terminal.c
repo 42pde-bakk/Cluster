@@ -20,9 +20,9 @@ void    print_grid_terminal(int opta, int optb)
 	char *grid = generated_map(5);
 
     get_indices(get_opposite_direction(g_field.gravity));
-    const static char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
-    const static char	*items_A[6] = { WHT" "RESET, WHT"A"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
-    const static char	*items_B[6] = { WHT" "RESET, WHT"B"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
+    static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
+    static const char	*items_A[6] = { WHT" "RESET, WHT"A"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
+    static const char	*items_B[6] = { WHT" "RESET, WHT"B"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
     char    c;
     int     cell_idx = 0;
 	int		iter = 0;
