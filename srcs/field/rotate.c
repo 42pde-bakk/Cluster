@@ -9,6 +9,7 @@
 t_tile  *bottoms[9];
 
 t_tile	*falling_tiles[TILES_AMOUNT];
+bool	g_movement;
 
 static void    drop_recursive_upwards(t_tile *tile) {
 	const int   grav = g_field.gravity;
@@ -20,6 +21,7 @@ static void    drop_recursive_upwards(t_tile *tile) {
 	if (down && down->tile_colour == 0 && (tile->alive && tile->tile_colour > 0)) { // dead tiles NOPE
 		down->tile_colour = tile->tile_colour;
 		tile->tile_colour = 0;
+		g_movement = true;
 //		printf("shifted tile_colour %d from idx %d to idx %d\n", tile->tile_colour, tile->idx, down->idx);
 	}
 	if (up)
@@ -42,13 +44,12 @@ static void    find_bottoms() {
 }
 
 void    let_fall() {
-    bool movement = true;
-    while (movement) {
-        movement = false;
+	g_movement = true;
+    while (g_movement) {
+    	g_movement = false;
         for (int i = 0; i < 9; ++i) {
         	t_tile	*t = bottoms[i];
             if (t) {
-                movement = true;
 				drop_recursive_upwards(t);
             }
         }
