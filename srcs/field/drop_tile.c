@@ -50,7 +50,6 @@ const t_tile *get_drop_tile(const t_move *move) {
         return (NULL);
     }
     drop_tile->tile_colour = move->colour;
-    printf("colour = %d\n", move->colour);
     ++g_field.number_played_tiles;
     return (drop_downwards(drop_tile));
 }

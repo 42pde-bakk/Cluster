@@ -11,7 +11,7 @@ How to play:\n \
 Type your preffered type of color (A/B) followed by a number from 1 - 9. \
 Afterwards you will see a ball drop.\n \
 Connect four of these balls to win!\n \
-You can use R followed by a number to rotate the board in your favour!\n \
+You can use R followed by a number to rotate the board that amount of times counterclockwise!\n \
 Good luck!\n");
 }
 
@@ -39,19 +39,26 @@ int main(int argc, char **argv) {
 			int winning_colour = 0;
 			int col1, col2;
 
-			generate_random_colours(player, &col1, &col2);
-			if (player->pid) {
-				send_turn_info(player, turn, col1, col2);
+			if (!bag_amount_check(player)) {
+				printf("Winner: player %d\n", (i + 1) % 2);
+				break;
 			}
-			print_grid_terminal(col1, col2);
+			pick_tile_colours(player, &col1, &col2);
+			if (player->pid) // player is a bot
+				send_turn_info(player, turn, col1, col2);
+			else
+				print_grid_terminal(col1, col2);
 
 			//player plays their turn
 			t_move move = player_request_input(player);
 			print_move(2, &move);
 			if (move.type == ALPHA || move.type == BETA) {
 				// update inventory
-				update_inventory(player, (int)move.type);
-				move.colour = player->col[move.type];
+				update_inventory(player, &move, col1, col2);
+				if (move.colour <= 0) {
+					winner = !i;
+					continue;
+				}
 			}
 			const t_tile *played_tile = execute_move(&move);
 			if ((move.type == ALPHA || move.type == BETA) && played_tile)
