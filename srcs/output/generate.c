@@ -3,12 +3,14 @@
 #include <math.h>
 #include <stdlib.h>
 
+int width, height;
+
 void edit_buf(int x, int y, char *data, char *str)
 {
 	int i = 0;
 	while (str[i])
 	{
-		data[y * 100 + x] = str[i];
+		data[y * width + x] = str[i];
 		i++;
 		x++;
 	}
@@ -25,11 +27,11 @@ void put_hex(int x, int y, char *data)
 
 int is_center_node(char *data, int x)
 {
-	for (size_t y = 0; y < 100; y++)
+	for (int y = 0; y < height; y++)
 	{
-		if (data[y * 100 + x] == '_')
+		if (data[y * width + x] == '_')
 		{
-			if (data[y * 100 + 200 + x] == '{')
+			if (data[(y + 2) * width + x] == '{')
 				return (1);
 			return (0);
 		} 
@@ -41,17 +43,16 @@ void add_arrows(char *data)
 {
 	int i = 1;
 	char num[10];
-	for (size_t x = 0; x < 100; x++)
+	for (int x = 0; x < width; x++)
 	{
 		if (is_center_node(data, x))
 		{
-			sprintf(num, "%d", i);
 			i++;
 			// padding missing but who cares
-			edit_buf(x, 0, data, num);
-			for (size_t y = 1; y < 100; y++)
+			edit_buf(x - 1, 0, data, num);
+			for (int y = 1; y < height; y++)
 			{
-				if (data[(y + 1) * 100 + x] == '_')
+				if (data[(y + 1) * width + x] == '_')
 				{
 					edit_buf(x, y, data, "v");
 					break;
@@ -69,16 +70,21 @@ void add_arrows(char *data)
 char *generated_map(int len)
 {
 	int count = len * 2 - 1;
-	static char data[10001];
-	data[10000] = 0;
+	int center = 7 + ((len - 1) * 8);
 
-	memset(data, ' ', 10000);
-	for (int i = 0; i < 100; i++)
+	width = ((len) * 16) - 4;
+	height = (count * 4) + 5;
+	char *data = calloc((width * height) + 2, 1);
+	if (data == 0)
+		return 0;
+	data[width * height] = 0;
+
+	memset(data, ' ', (width * height));
+	for (int i = 1; i < height; i++)
 	{
-		data[i * 100] = '\n';
+		data[i * width] = '\n';
 	}
 
-	int center = 7 + ((len - 1) * 8);
 	int startDeclineEven = -1, startDeclineOdd  = -1;
 	int curXEven = 0, curXOdd = 0;
 	int inclineEven = 1, inclineOdd = 1;
@@ -135,7 +141,7 @@ char *generated_map(int len)
 			put_hex(center + xPos, (y * 2) + 5, data);
 		}
 	}
-	data[(y * 2 + 5) * 100] = '\0';
+	data[(y * 2 + 5) * width] = '\0';
 	add_arrows(data);
 	return (data);
 }

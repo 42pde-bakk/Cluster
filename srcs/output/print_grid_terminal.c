@@ -15,9 +15,20 @@
 #define GRY   "\x1B[90m"
 #define RESET "\x1B[0m"
 
+#define AB \
+"          AAAAA                                                     BBBBB\n\
+         A     A                                                    B    B\n\
+         A     A                                                    BBBBBB\n\
+         AAAAAAA                                                    B     B\n\
+         A     A                                                    B    B\n\
+         A     A                                                    BBBBB\n"
+
+char *grid = 0;
+
 void    print_grid_terminal(int opta, int optb)
 {
-	char *grid = generated_map(g_gameinfo.size);
+	if (!grid)
+		grid = generated_map(5);
 
     get_indices(get_opposite_direction(g_field.gravity));
     static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
@@ -50,5 +61,19 @@ void    print_grid_terminal(int opta, int optb)
         else
             printf(WHT "%c", c);
     }
+	printf("\n");
+	int i = 0;
+	while (AB[i])
+	{
+        if (AB[i] == 'A' && opta != -1) {
+            printf("%s", items_A[opta + 1]);
+        }
+        else if (AB[i] == 'B' && optb != -1) {
+            printf("%s", items_B[optb + 1]);
+        }
+		else
+			printf("%c", AB[i]);
+		i++;
+	}
     printf("\n");
 }
