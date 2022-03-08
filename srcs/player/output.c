@@ -20,11 +20,12 @@ void	send_turn_info(const t_player *player, int turn, int col1, int col2) {
 	int nb_tiles = g_field.number_played_tiles;
 
 	dprintf(fd, "%d %d\n", turn, nb_tiles);
+	dprintf(fd, "%d %d\n", col1, col2);
 	for (int i = 0; i < TILES_AMOUNT; ++i) {
 		const t_tile *t = tile_arr[i];
 		if (t->tile_colour > 0) {
 			int _is_mine = (t->tile_colour <= player->idx + 2);
-			dprintf(fd, "%d %d %d %d %d\n", t->idx, t->tile_colour, _is_mine, col1, col2);
+			dprintf(fd, "%d %d %d\n", t->idx, t->tile_colour, _is_mine);
 		}
 	}
 }
