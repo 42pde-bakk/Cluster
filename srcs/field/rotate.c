@@ -60,8 +60,6 @@ void    let_fall() {
 
 const t_tile *rotate_field(const t_move *move) {
 	int value = move->value;
-    assert(value > 0 && value < 6);
-    // if direction isn't within 1 and 5, this throws an error.
     g_field.gravity = direction_add(g_field.gravity, -value);
 
     printf("gravity now is %d\n", g_field.gravity);

@@ -40,13 +40,20 @@ int	is_valid(char type, const int value) {
 		printf(_WHITE);
 		return 0;
 	}
-	if ((value <= 0 || value >= BOARD_SIZE * 2))
+	if (type != 'R' && (value <= 0 || value >= BOARD_SIZE * 2))
 	{
 		printf(_YELLOW);
 		printf("Error: '%d' not a valid row\n", value);
 		printf(_WHITE);
 		return 0;
 	}
+	else if (type == 'R' && (value <= 0 || value > BOARD_SIZE))
+	{
+		printf(_YELLOW);
+		printf("Error: '%d' not a valid rotation value [1-%d]\n", value, BOARD_SIZE);
+		printf(_WHITE);
+		return 0;
+	}	
 	return (1);
 }
 
