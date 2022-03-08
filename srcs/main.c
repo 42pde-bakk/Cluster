@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
 	int		ringsize = 5;
 	int 	winner = -1;
 	int		winning_row_length = 4;
+	int i = 0;
 
 	(void)argc;
 	if (argc == 2 && strcmp(argv[1], "--help") == 0)
@@ -65,6 +66,11 @@ int main(int argc, char **argv) {
 			else if (move.type == ROTATE)
 				winning_colour = win_check_all_tiles(winning_row_length);
 			printf("after winning check\n Here some more info\n");
+			make_dead_tiles(tile_arr);
+			while (tile_arr[i]) {
+				printf("%d\n", tile_arr[i]->alive);
+				i++;
+			}
 			if (winning_colour) {
 				// 1 if winning_colour is 3 or 4
 				// 0 if winning_colour is 1 or 2

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <time.h>
 #include "move.h"
 
 #define TILES_AMOUNT 61
@@ -46,6 +47,7 @@ extern int		tile_order[TILES_AMOUNT];
 
 // srcs/field/init_field.c
 int	init_field();
+void	make_dead_tiles(t_tile **tile_arr);
 
 // srcs/field/tile.c
 int	get_n(const t_tile *t, int dir);

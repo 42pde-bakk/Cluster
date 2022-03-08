@@ -8,6 +8,11 @@ t_field g_field;
 t_tile	*tile_arr[TILES_AMOUNT];
 
 
+void	make_dead_tiles(t_tile **tile_arr) {
+	srand(time(0));
+	for (int i = 0; tile_arr[i]; i++)
+		tile_arr[i]->alive = rand() % 2;
+}
 // a is the source tile
 // b is the newly created tile
 // direction is the dir from a to b
