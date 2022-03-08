@@ -8,7 +8,7 @@
 void	send_game_info(const t_player *player) {
 	const int fd = player->_stdin[1];
 
-	dprintf(fd, "%d\n", g_gameinfo.tiles_amount);
+	dprintf(fd, "%d %d\n", g_gameinfo.size, g_gameinfo.tiles_amount);
 	for (int i = 0; i < g_gameinfo.tiles_amount; ++i) {
 		const t_tile	*t = tile_arr[i];
 		dprintf(fd, "%d %d %d %d %d %d %d\n", t->idx, get_n(t, 0), get_n(t, 1), get_n(t, 2), get_n(t, 3), get_n(t, 4), get_n(t, 5));
