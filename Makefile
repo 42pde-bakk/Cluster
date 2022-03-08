@@ -1,7 +1,9 @@
 NAME = cluster
 INCLUDE = -Iinclude
-HEADER = include/cluster.h
+HEADER = include/cluster.h mlx/include/MLX42
 
+# Owning the Libs
+LIBS = mlx/libmlx42.a
 SRC_DIR = srcs
 BUILD_DIR = obj
 SRC_EXT = c
@@ -38,7 +40,7 @@ all: directories $(NAME)
 directories:
 	@mkdir -p $(BUILD_DIR)
 
-$(NAME): $(OBJECTS) $(HEADER)
+$(NAME): $(OBJECTS) $(HEADER) $(LIBS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 	@printf "$(PINK)Done building $(NAME) $(RESET)\n"
 
@@ -48,6 +50,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 
 bot: bot.c
 	$(CC) $(CFLAGS) bot.c $(INCLUDE) -o $@
+
+mlx/libmlx42.a:
+	$(MAKE) -C $(dir $@)
 
 clean:
 	/bin/rm -f $(OBJECTS)
