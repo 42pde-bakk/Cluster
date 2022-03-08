@@ -59,9 +59,6 @@ int main(int argc, char **argv) {
 
 	parser(argc, argv);
 	init_field();
-	printf("created field\n");
-	printf("corners[0]:\n");
-	print_tile(g_field.corners[0]);
 	t_players *players = init_players(g_gameinfo.tiles_amount);
 	parse_bots(argc, argv, players);
 
@@ -115,5 +112,5 @@ int main(int argc, char **argv) {
 	congratulate_winner(winner);
 	gameinfo_dtor();
 	free(players);
-	return 0;
+	exit(0);
 }
