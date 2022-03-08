@@ -6,7 +6,7 @@
 /*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 11:46:26 by tbouma            #+#    #+#             */
-/*   Updated: 2022/03/07 14:37:35 by tbouma           ###   ########.fr       */
+/*   Updated: 2022/03/08 11:05:21 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ int	win_check_this_tile(const t_tile *current_tile, int set_row_length) {
 
 int	win_check_all_tiles(int set_row_length) {
 	int i = 0;
+	printf("checking for win after rotating:\n");
+	printf("tile status comment out\n");
 	while (tile_arr[i])
 	{
-		printf("checking tile:\n");
-		print_tile(tile_arr[i]);
+		//print_tile(tile_arr[i]);
 		if (tile_arr[i]->tile_colour)
 		{
 			if (win_check_this_tile(tile_arr[i], set_row_length))

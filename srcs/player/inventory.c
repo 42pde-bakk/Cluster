@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   play_turn.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaberkro <jaberkro@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/03/07 12:24:29 by jaberkro      #+#    #+#                 */
-/*   Updated: 2022/03/07 15:36:15 by jaberkro      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   inventory.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 12:24:29 by jaberkro          #+#    #+#             */
+/*   Updated: 2022/03/08 12:19:31 by tbouma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,42 @@
 #include <assert.h>
 #include <string.h>
 
-void	generate_random_colours(t_player *player, int *col_a, int *col_b) {
-	*col_a = player->col[0];
-	*col_b = player->col[1];
+int	bag_amount_check(t_player *player) {
+	int total_amount = player->amount[0] + player->amount[1];
+	if (total_amount < 2)
+		return (0);
+	return (1);
 }
 
-int	update_inventory(t_player* player, int colour_index) {
-	if (player->amount[colour_index] == 0)
-		return (1);
-	player->amount[colour_index] -= 1;
-	return (0);
+void	generate_random_colours(t_player *player, int *col_a, int *col_b) {
+	int picked_colour;
+
+	srand(time(0));
+	picked_colour = rand() % 2;
+	if (player->amount[picked_colour] > 0) {
+		*col_a = player->col[picked_colour];
+		player->amount[picked_colour] -= 1;
+	}
+	else {
+		*col_a = player->col[(picked_colour + 1) % 2];
+		player->amount[(picked_colour + 1) % 2] -= 1;
+	}
+	
+	picked_colour = rand() % 2;
+	if (player->amount[picked_colour] > 0) {
+		*col_b = player->col[picked_colour];
+		player->amount[picked_colour] -= 1;
+	}
+	else {
+		*col_b = player->col[(picked_colour + 1) % 2];
+		player->amount[(picked_colour + 1) % 2] -= 1;
+	}
 }
+
+// int	update_inventory(t_player* player, int colour_index) {
+// 	player->amount[colour_index]++;
+// 	return (0);
+// }
 
 //const t_tile	*play_turn(bool turn, t_players *players)
 //{
