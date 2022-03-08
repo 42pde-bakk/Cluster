@@ -16,7 +16,7 @@
 t_player init_player(int col1, int col2, int ringsize)
 {
 	static		int idx = 0;
-	size_t      amount = get_size(ringsize) / 4;
+	size_t      amount = ringsize / 4;
     t_player    player = {
 		.col = { col1, col2 },
 		.amount = { amount, amount },
@@ -26,12 +26,12 @@ t_player init_player(int col1, int col2, int ringsize)
     return (player);
 }
 
-t_players   *init_players(int ringsize)
+t_players   *init_players(int tiles_amount)
 {
-    t_players   *players = calloc(1, sizeof(t_players));
+    t_players   *players = ft_calloc(1, sizeof(t_players));
 
-    players->p[0] = init_player(1, 2, ringsize);
-    players->p[1] = init_player(3, 4, ringsize);
+    players->p[0] = init_player(1, 2, tiles_amount);
+    players->p[1] = init_player(3, 4, tiles_amount);
     players->turn = 0;
     return (players);
 }

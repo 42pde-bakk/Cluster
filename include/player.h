@@ -43,7 +43,7 @@ t_move	player_request_input(t_player *player);
 int init_player_process(const char* path, t_player* player);
 
 // srcs/player/player.c
-t_players       *init_players(int ringsize);
+t_players       *init_players(int tiles_amount);
 
 // srcs/player/inventory.c
 int		bag_amount_check(t_player *player);
