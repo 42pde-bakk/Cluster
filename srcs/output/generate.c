@@ -27,7 +27,7 @@ void put_hex(int x, int y, char *data)
 
 int is_center_node(char *data, int x)
 {
-	for (size_t y = 0; y < height; y++)
+	for (int y = 0; y < height; y++)
 	{
 		if (data[y * width + x] == '_')
 		{
@@ -43,15 +43,14 @@ void add_arrows(char *data)
 {
 	int i = 1;
 	char num[10];
-	for (size_t x = 0; x < width; x++)
+	for (int x = 0; x < width; x++)
 	{
 		if (is_center_node(data, x))
 		{
-			sprintf(num, "%d", i);
 			i++;
 			// padding missing but who cares
 			edit_buf(x - 1, 0, data, num);
-			for (size_t y = 1; y < height; y++)
+			for (int y = 1; y < height; y++)
 			{
 				if (data[(y + 1) * width + x] == '_')
 				{
@@ -75,17 +74,14 @@ char *generated_map(int len)
 
 	width = ((len) * 16) - 4;
 	height = (count * 4) + 5;
-	printf("WIDTH %d %d\n", width, height);
 	char *data = calloc((width * height) + 2, 1);
 	if (data == 0)
-		printf("ERROR\n");
+		return 0;
 	data[width * height] = 0;
 
 	memset(data, ' ', (width * height));
 	for (int i = 1; i < height; i++)
 	{
-		printf("%d\n", i);
-		data[i * width - 1] = '$';
 		data[i * width] = '\n';
 	}
 
@@ -148,11 +144,4 @@ char *generated_map(int len)
 	data[(y * 2 + 5) * width] = '\0';
 	add_arrows(data);
 	return (data);
-}
-
-int main(int argc, char **argv)
-{
-	char *data = generated_map(atoi(argv[1]));
-	printf("%s\n", data);
-	free(data);
 }
