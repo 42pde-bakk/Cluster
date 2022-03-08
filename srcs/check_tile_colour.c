@@ -51,8 +51,6 @@ int	win_check_all_tiles(int set_row_length) {
 	int i = 0;
 	while (tile_arr[i])
 	{
-		printf("checking tile:\n");
-		print_tile(tile_arr[i]);
 		if (tile_arr[i]->tile_colour)
 		{
 			if (win_check_this_tile(tile_arr[i], set_row_length))
