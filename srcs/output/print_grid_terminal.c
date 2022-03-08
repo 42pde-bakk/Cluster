@@ -17,18 +17,20 @@
 
 void    print_grid_terminal(int opta, int optb)
 {
-    FILE *grid = fopen("maps/grid5.txt", "r");
+	char *grid = generated_map(5);
+
     get_indices(get_opposite_direction(g_field.gravity));
     char	*items_double[5] = { WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
     char	*items_A[5] = { WHT"A"RESET, RED"A"RESET, YEL"A"RESET, GRN"A"RESET, BLU"A"RESET };
     char	*items_B[5] = { WHT"B"RESET, RED"B"RESET, YEL"B"RESET, GRN"B"RESET, BLU"B"RESET };
     char    c;
     int     i = 0;
+	int		iter = 0;
     
     while (1)
     {
-        c = (char)getc(grid);
-        if (c == '.')
+		c = grid[iter++];
+        if (c == '.' || c == '\0')
             break;
         else if (c == '}')
             ;

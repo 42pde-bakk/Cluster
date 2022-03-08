@@ -71,6 +71,9 @@ const t_tile *rotate_field(const t_move *move);
 const t_tile *drop_downwards(t_tile *tile);
 const t_tile *get_drop_tile(const t_move *move);
 
+// srcs/output/generate.c
+char *generated_map(int len);
+
 //winning fucncs
 int	win_check_all_tiles(int set_row_length);
 int	win_check_this_tile(const t_tile *current_tile, int set_row_length);

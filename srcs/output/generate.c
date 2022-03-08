@@ -66,7 +66,7 @@ void add_arrows(char *data)
 		
 }
 
-char *generated(int len)
+char *generated_map(int len)
 {
 	int count = len * 2 - 1;
 	static char data[10001];
@@ -83,10 +83,10 @@ char *generated(int len)
 	int curXEven = 0, curXOdd = 0;
 	int inclineEven = 1, inclineOdd = 1;
 
-	size_t y = 0;
+	int y = 0;
 	for (; y < count * 2; y += 1)
 	{
-		size_t x = 0, endX;
+		int x = 0, endX;
 
 		if (y == startDeclineEven)
 			inclineEven = -1;
@@ -117,7 +117,7 @@ char *generated(int len)
 			endX = curXOdd;
 		}
 
-		// print
+		// render
 		for (; x < endX; x++)
 		{
 			int xPos = 0;
@@ -137,11 +137,5 @@ char *generated(int len)
 	}
 	data[(y * 2 + 5) * 100] = '\0';
 	add_arrows(data);
-	printf("%s\n", data);
 	return (data);
-}
-
-int main(int argc, char **argv)
-{
-	generated(atoi(argv[1]));
 }
