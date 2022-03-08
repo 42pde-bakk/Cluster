@@ -28,7 +28,7 @@ char *grid = 0;
 void    print_grid_terminal(int opta, int optb)
 {
 	if (!grid)
-		grid = generated_map(5);
+		grid = generated_map(g_gameinfo.size);
 
     get_indices(get_opposite_direction(g_field.gravity));
     static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
