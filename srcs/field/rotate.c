@@ -8,8 +8,26 @@
 
 t_tile  *bottoms[9];
 
+t_tile	*falling_tiles[TILES_AMOUNT];
+bool	g_movement;
 
-void    find_bottoms() {
+static void    drop_recursive_upwards(t_tile *tile) {
+	const int   grav = g_field.gravity;
+	const int   antigrav = get_opposite_direction(grav);
+	t_tile      *down = tile->neighbours[grav];
+	t_tile      *up = tile->neighbours[antigrav];
+
+
+	if (down && down->tile_colour == 0 && tile->tile_colour > 0) { // dead tiles NOPE
+		down->tile_colour = tile->tile_colour;
+		tile->tile_colour = 0;
+		g_movement = true;
+	}
+	if (up)
+		drop_recursive_upwards(up);
+}
+
+static void    find_bottoms() {
     int antigravity = get_opposite_direction(g_field.gravity);
     int left_dir = get_previous_direction(antigravity),
         right_dir = get_next_direction(antigravity);
@@ -25,31 +43,31 @@ void    find_bottoms() {
 }
 
 void    let_fall() {
-    const int antigrav = get_opposite_direction(g_field.gravity);
-    bool movement = true;
-    while (movement) {
-        movement = false;
+	g_movement = true;
+    while (g_movement) {
+    	g_movement = false;
         for (int i = 0; i < 9; ++i) {
-            if (bottoms[i]) {
-                movement = true;
-                if (bottoms[i]->tile_colour && bottoms[i]->alive) {
-                    drop_downwards(bottoms[i]);
-                }
-                bottoms[i] = bottoms[i]->neighbours[antigrav];
+        	t_tile	*t = bottoms[i];
+            if (t) {
+				drop_recursive_upwards(t);
             }
         }
+        print_grid_terminal(-1, -1);
+		usleep(200000);
     }
 }
 
-const t_tile * rotate_field(const t_move *move) {
+const t_tile *rotate_field(const t_move *move) {
 	int value = move->value;
-    assert(value > 0 && value < 6);
-    // if direction isn't within 1 and 5, this throws an error.
-    g_field.gravity = (g_field.gravity + value) % 6;
+    g_field.gravity = direction_add(g_field.gravity, -value);
 
     printf("gravity now is %d\n", g_field.gravity);
 
     find_bottoms();
+    for (int i = 0; i < 9; ++i) {
+    	printf("bottoms[%d]: ", i);
+    	print_tile(bottoms[i]);
+    }
     let_fall();
 
     // No need to update the corners

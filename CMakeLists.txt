@@ -9,5 +9,5 @@ file(GLOB srcs "srcs/*.c")
 file(GLOB srcs/output "srcs/output/*.c")
 file(GLOB extra_srcs "srcs/**/*.c")
 
-add_executable(Cluster ${includes} ${srcs} ${extra_srcs} ${output})
+add_executable(Cluster ${includes} ${srcs} ${extra_srcs} ${output} bot.c)
 include_directories(include)

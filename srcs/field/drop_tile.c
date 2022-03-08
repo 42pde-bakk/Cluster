@@ -5,11 +5,11 @@
 #include "cluster.h"
 #include <assert.h>
 
-const t_tile * drop_downwards(t_tile *tile) {
+const t_tile *drop_downwards(t_tile *tile) {
     const int   grav = g_field.gravity;
     t_tile      *down = tile->neighbours[grav];
 
-    print_grid_terminal(0, 0);
+    print_grid_terminal(-1, -1);
     usleep(200000);
     if (down && down->tile_colour == 0) {
         down->tile_colour = tile->tile_colour;
@@ -49,12 +49,8 @@ const t_tile *get_drop_tile(const t_move *move) {
         printf("Damn son, the tile you chose already is filled, what a shitty move!\n");
         return (NULL);
     }
-    if (!drop_tile->alive) {
-        printf("how are you gonna drop your tile right onto a dead one?\n");
-        return (NULL);
-    }
     drop_tile->tile_colour = move->colour;
-    printf("colour = %d\n", move->colour);
+    ++g_field.number_played_tiles;
     return (drop_downwards(drop_tile));
 }
 
