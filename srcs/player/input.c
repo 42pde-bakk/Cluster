@@ -6,11 +6,14 @@
 #include "move.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
+#include <cluster.h>
 #include "colours.h"
+#include <limits.h>
 
 static t_move parse_input(const char input, const int value) {
 	static const char*	strs[] = {
-			"ALPHA", "BETA", "ROTATE", "\0"
+		"ALPHA", "BETA", "ROTATE", "\0"
 	};
 	for (size_t i = 0; i < sizeof(strs) / 8; ++i) {
 		if (input == strs[i][0])
@@ -22,38 +25,56 @@ static t_move parse_input(const char input, const int value) {
 	return (error_move());
 }
 
-int	is_valid(const char type, const int value) {
-	if ((type == 'A' || type == 'B' || type == 'R') == 0)
+int	is_valid(char type, const int value) {
+	if (type == '\0')
 	{
 		printf(_YELLOW);
-		printf("Error: '%c' not a valid character\n", type);
+		printf("Error: missing spacebar between arguments\n");
 		printf(_WHITE);
 		return 0;
 	}
-	if ((value <= 0 || value >= 10))
+	if ((type == 'A' || type == 'B' || type == 'R') == 0)
+	{
+		printf(_YELLOW);
+		printf("Error: '%c' not a valid action\n", type);
+		printf(_WHITE);
+		return 0;
+	}
+	if (type != 'R' && (value <= 0 || value >= g_gameinfo.size * 2))
 	{
 		printf(_YELLOW);
 		printf("Error: '%d' not a valid row\n", value);
 		printf(_WHITE);
 		return 0;
 	}
+	else if (type == 'R' && (value <= 0 || value > 5))
+	{
+		printf(_YELLOW);
+		printf("Error: '%d' not a valid rotation value [1-%d]\n", value, g_gameinfo.size);
+		printf(_WHITE);
+		return 0;
+	}	
 	return (1);
 }
 
 t_move	player_request_input(t_player *player) {
-	char	movechar = 0;
-	char	movebuf[1024] = {0};
+	char	movetype = 0;
+	char	*input_line = NULL;
+	size_t	line_cap = 0;
+	size_t	line_len = 0;
 	int		value = 0;
 
 	(void)player;
-	do
-	{
-		if (fscanf(player->reader, "%s %d", movebuf, &value) == -1)
-			continue;
-		movechar = toupper(movebuf[0]);
-	} while (!is_valid(movechar, value));
+	do {
+		line_len = getline(&input_line, &line_cap, player->reader);
+		if (line_len == ULONG_MAX)
+			return (error_move());
+		if (line_len >= 4 && input_line[1] == ' ')
+			movetype = (char)toupper(input_line[0]);
+		value = (int)strtol(input_line + 2, NULL, 10);
+	} while (!is_valid(movetype, value));
 
-	t_move	move = parse_input(movechar, value);
+	t_move	move = parse_input(movetype, value);
 	print_move(STDERR_FILENO, &move);
 	return (move);
 }

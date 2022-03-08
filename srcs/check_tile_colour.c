@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check_tile_colour.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tbouma <tbouma@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 11:46:26 by tbouma            #+#    #+#             */
-/*   Updated: 2022/03/07 14:37:35 by tbouma           ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   check_tile_colour.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tbouma <tbouma@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/03/07 11:46:26 by tbouma        #+#    #+#                 */
+/*   Updated: 2022/03/08 15:38:28 by alpha_1337    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,8 @@ int	win_check_this_tile(const t_tile *current_tile, int set_row_length) {
 
 int	win_check_all_tiles(int set_row_length) {
 	int i = 0;
-	while (tile_arr[i])
-	{
-		printf("checking tile:\n");
-		print_tile(tile_arr[i]);
-		if (tile_arr[i]->tile_colour)
-		{
+	while (printf("tile_arr[%d]\n", i) && tile_arr[i]) {
+		if (tile_arr[i]->tile_colour) {
 			if (win_check_this_tile(tile_arr[i], set_row_length))
 				return (tile_arr[i]->tile_colour);
 		}

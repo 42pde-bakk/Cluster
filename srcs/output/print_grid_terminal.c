@@ -31,14 +31,16 @@ void    print_grid_terminal(int opta, int optb)
 		grid = generated_map(5);
 
     get_indices(get_opposite_direction(g_field.gravity));
-    char	*items_double[5] = { WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
-    char	*items_A[5] = { WHT"A"RESET, RED"A"RESET, YEL"A"RESET, GRN"A"RESET, BLU"A"RESET };
-    char	*items_B[5] = { WHT"B"RESET, RED"B"RESET, YEL"B"RESET, GRN"B"RESET, BLU"B"RESET };
+    static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
+    static const char	*items_A[6] = { WHT" "RESET, WHT"A"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
+    static const char	*items_B[6] = { WHT" "RESET, WHT"B"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
     char    c;
-    int     i = 0;
+    int     cell_idx = 0;
 	int		iter = 0;
-    
-    while (1)
+
+    system("clear");
+
+    while (true)
     {
 		c = grid[iter++];
         if (c == '.' || c == '\0')
@@ -47,17 +49,15 @@ void    print_grid_terminal(int opta, int optb)
             ;
         else if (c == '{')
         {
-            printf("%s", items_double[tile_arr[tile_order[i]]->tile_colour]);
-            i++;
+            printf("%s", items_double[tile_arr[tile_order[cell_idx]]->tile_colour + 1]);
+            cell_idx++;
         }
         else if (c == '|' || c == 'v')
             printf(GRY "%c", c);
-        else if (c == 'A') {
-            printf("%s", items_A[opta]);
-        }
-        else if (c == 'B') {
-            printf("%s", items_B[optb]);
-        }
+        else if (c == 'A') 
+            printf("%s", items_A[opta + 1]);
+        else if (c == 'B')
+            printf("%s", items_B[optb + 1]);
         else
             printf(WHT "%c", c);
     }
