@@ -5,7 +5,7 @@
 #include "cluster.h"
 #include <assert.h>
 
-const t_tile * drop_downwards(t_tile *tile) {
+const t_tile *drop_downwards(t_tile *tile) {
     const int   grav = g_field.gravity;
     t_tile      *down = tile->neighbours[grav];
 

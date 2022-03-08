@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <cluster.h>
 #include "colours.h"
+#include <limits.h>
 
 static t_move parse_input(const char input, const int value) {
 	static const char*	strs[] = {
@@ -39,13 +40,20 @@ int	is_valid(char type, const int value) {
 		printf(_WHITE);
 		return 0;
 	}
-	if ((value <= 0 || value >= BOARD_SIZE * 2))
+	if (type != 'R' && (value <= 0 || value >= BOARD_SIZE * 2))
 	{
 		printf(_YELLOW);
 		printf("Error: '%d' not a valid row\n", value);
 		printf(_WHITE);
 		return 0;
 	}
+	else if (type == 'R' && (value <= 0 || value > BOARD_SIZE))
+	{
+		printf(_YELLOW);
+		printf("Error: '%d' not a valid rotation value [1-%d]\n", value, BOARD_SIZE);
+		printf(_WHITE);
+		return 0;
+	}	
 	return (1);
 }
 
@@ -59,6 +67,8 @@ t_move	player_request_input(t_player *player) {
 	(void)player;
 	do {
 		line_len = getline(&input_line, &line_cap, player->reader);
+		if (line_len == ULONG_MAX)
+			return (error_move());
 		if (line_len >= 4 && input_line[1] == ' ')
 			movetype = (char)toupper(input_line[0]);
 		value = (int)strtol(input_line + 2, NULL, 10);

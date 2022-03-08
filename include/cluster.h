@@ -31,7 +31,7 @@ typedef struct	s_field {
 
 // sicke globals
 extern t_field	g_field;
-extern t_tile	*tile_arr[TILES_AMOUNT];
+extern t_tile	*tile_arr[TILES_AMOUNT + 1];
 extern int		tile_order[TILES_AMOUNT];
 
 // srcs/field/init_field.c
@@ -47,6 +47,7 @@ int	get_previous_direction(int dir);
 int get_next_direction(int dir);
 int get_opposite_direction(int dir);
 int get_link_direction(int dir);
+int	direction_add(int dir, int add);
 
 // output/print_grid_terminal.c
 void    print_grid_terminal();

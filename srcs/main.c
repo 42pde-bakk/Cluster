@@ -15,6 +15,10 @@ You can use R followed by a number to rotate the board that amount of times coun
 Good luck!\n");
 }
 
+static void	congratulate_winner(const int winner) {
+	printf("Winner: player %d\n", winner);
+}
+
 int main(int argc, char **argv) {
 	size_t	turn = 0;
 	int		ringsize = 5;
@@ -51,6 +55,10 @@ int main(int argc, char **argv) {
 
 			//player plays their turn
 			t_move move = player_request_input(player);
+			if (move.type == ERROR) {
+				winner = !i;
+				continue;
+			}
 			print_move(2, &move);
 			if (move.type == ALPHA || move.type == BETA) {
 				// update inventory
@@ -69,11 +77,11 @@ int main(int argc, char **argv) {
 				// 1 if winning_colour is 3 or 4
 				// 0 if winning_colour is 1 or 2
 				winner = (winning_colour > 2);
-				printf("Winner: player %d\n", winner);
 				break;
 			}
 		}
 		turn += 1;
 	}
+	congratulate_winner(winner);
 	return 0;
 }

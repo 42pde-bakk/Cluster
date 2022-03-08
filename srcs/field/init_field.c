@@ -5,7 +5,7 @@
 #include "cluster.h"
 
 t_field g_field;
-t_tile	*tile_arr[TILES_AMOUNT];
+t_tile	*tile_arr[TILES_AMOUNT + 1];
 
 
 // a is the source tile
