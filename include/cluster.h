@@ -10,9 +10,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "move.h"
-
-#define TILES_AMOUNT 61
-#define BOARD_SIZE 5
+#include "gameinfo.h"
+#include "utils.h"
 
 typedef struct s_tile {
 	int		idx;
@@ -28,11 +27,9 @@ typedef struct	s_field {
 	int		number_played_tiles;
 }	t_field;
 
-
 // sicke globals
 extern t_field	g_field;
-extern t_tile	*tile_arr[TILES_AMOUNT + 1];
-extern int		tile_order[TILES_AMOUNT];
+// other globals I put in gameinfo.h
 
 // srcs/field/init_field.c
 int	init_field();
@@ -54,7 +51,6 @@ void    print_grid_terminal();
 
 // srcs/field/tileorder.c
 void	get_indices();
-size_t	get_size(size_t ringsize);
 
 // srcs/field.rotate.c
 const t_tile *rotate_field(const t_move *move);
@@ -62,6 +58,9 @@ const t_tile *rotate_field(const t_move *move);
 // srcs/field/drop_tile.c
 const t_tile *drop_downwards(t_tile *tile);
 const t_tile *get_drop_tile(const t_move *move);
+
+// srcs/output/generate.c
+char *generated_map(int len);
 
 //winning fucncs
 int	win_check_all_tiles(int set_row_length);
