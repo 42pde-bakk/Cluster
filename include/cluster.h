@@ -12,6 +12,7 @@
 #include "move.h"
 
 #define TILES_AMOUNT 61
+#define BOARD_SIZE 5
 
 typedef struct s_tile {
 	int		idx;
