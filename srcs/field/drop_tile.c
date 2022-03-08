@@ -25,7 +25,7 @@ const t_tile *get_drop_tile(const t_move *move) {
     const int upwards = get_opposite_direction(g_field.gravity);
     int pos = move->value;
     t_tile  *drop_tile = g_field.corners[upwards];
-    int start = 5; // because it's in the middle (check the figure Jorien made)
+    int start = g_gameinfo.size; // because it's in the middle (check the figure Jorien made)
     int movedirection;
     int delta = 1;
 	dprintf(2, "drop_tile starts here:\n");
