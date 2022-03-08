@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <sys/wait.h>
 #include "move.h"
 
 void	do_move() {
-	static const char* moves[] = {"ALPHA", "BETA", "ROTATE"};
+	static const char* moves[] = {"A", "B", "R"};
 	int move_type = rand() % 3;
 	int move_value;
 	if (move_type == ROTATE)
@@ -13,6 +14,7 @@ void	do_move() {
 	else
 		move_value = rand() % 9 + 1;
 	printf("%s %d\n", moves[move_type], move_value);
+	fflush(stdout);
 	dprintf(2, "MOVE: %s %d\n", moves[move_type], move_value);
 }
 
