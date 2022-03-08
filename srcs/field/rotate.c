@@ -22,7 +22,6 @@ static void    drop_recursive_upwards(t_tile *tile) {
 		down->tile_colour = tile->tile_colour;
 		tile->tile_colour = 0;
 		g_movement = true;
-//		printf("shifted tile_colour %d from idx %d to idx %d\n", tile->tile_colour, tile->idx, down->idx);
 	}
 	if (up)
 		drop_recursive_upwards(up);

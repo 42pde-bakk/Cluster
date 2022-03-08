@@ -14,20 +14,9 @@
 #define TILES_AMOUNT 61
 #define BOARD_SIZE 5
 
-typedef enum s_dir {
-	DOWN = 0,
-	DOWNLEFT,
-	UPLEFT,
-	UP,
-	UPRIGHT,
-	DOWNRIGHT,
-}	t_dir;
-
 typedef struct s_tile {
 	int		idx;
 	int		tile_colour;
-	bool	printed;
-	bool	alive;
 
 	struct s_tile	*neighbours[6];
 }	t_tile;
@@ -36,6 +25,7 @@ typedef struct	s_field {
 	int		gravity;
 	t_tile	*corners[6];
 	t_tile	*center;
+	int		number_played_tiles;
 }	t_field;
 
 
@@ -48,7 +38,7 @@ extern int		tile_order[TILES_AMOUNT];
 int	init_field();
 
 // srcs/field/tile.c
-int	get_n(const t_tile *t, int dir);
+int		get_n(const t_tile *t, int dir);
 void	print_tile(const t_tile *t);
 t_tile	*create_tile();
 

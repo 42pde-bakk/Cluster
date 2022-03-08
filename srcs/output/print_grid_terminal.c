@@ -24,6 +24,8 @@ void    print_grid_terminal(int opta, int optb)
     char	*items_B[6] = { WHT" "RESET, WHT"B"RESET, RED"#"RESET, YEL"@"RESET, GRN"$"RESET, BLU"&"RESET };
     char    c;
     int     i = 0;
+
+    system("clear");
     
     while (1)
     {
