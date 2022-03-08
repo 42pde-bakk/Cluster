@@ -18,7 +18,7 @@ static void    drop_recursive_upwards(t_tile *tile) {
 	t_tile      *up = tile->neighbours[antigrav];
 
 
-	if (down && down->tile_colour == 0 && (tile->alive && tile->tile_colour > 0)) { // dead tiles NOPE
+	if (down && down->tile_colour == 0 && tile->tile_colour > 0) { // dead tiles NOPE
 		down->tile_colour = tile->tile_colour;
 		tile->tile_colour = 0;
 		g_movement = true;
