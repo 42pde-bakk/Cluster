@@ -67,7 +67,6 @@ void	spawn_new_ring(const size_t ringsize) {
 	link_neighbours(first_oldcorner, g_field.corners[0], 0);
 }
 
-
 int	create_first_ring() {
 	for (int dir = 0; dir < 6; ++dir) {
 		t_tile *new_tile = create_tile();
@@ -76,16 +75,13 @@ int	create_first_ring() {
 	}
 	set_corners();
 	// TODO: still need to connect the invididual new tiles with each other --> this is done now
-	print_tile(g_field.center);
-	printf("\n");
-	print_tile(g_field.center->neighbours[0]);
-	print_tile(g_field.center->neighbours[1]);
 	return (0);
 }
 
 int	init_field() {
 	size_t size = 3;
 	g_field.gravity = 3;
+	g_field.number_played_tiles = 0;
 
 	g_field.center = create_tile();
 	create_first_ring();

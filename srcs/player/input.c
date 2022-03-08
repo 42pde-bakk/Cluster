@@ -12,7 +12,7 @@
 
 static t_move parse_input(const char input, const int value) {
 	static const char*	strs[] = {
-			"ALPHA", "BETA", "ROTATE", "\0"
+		"ALPHA", "BETA", "ROTATE", "\0"
 	};
 	for (size_t i = 0; i < sizeof(strs) / 8; ++i) {
 		if (input == strs[i][0])
@@ -60,9 +60,10 @@ t_move	player_request_input(t_player *player) {
 	do {
 		line_len = getline(&input_line, &line_cap, player->reader);
 		if (line_len >= 4 && input_line[1] == ' ')
-			movetype = toupper(input_line[0]);
+			movetype = (char)toupper(input_line[0]);
 		value = (int)strtol(input_line + 2, NULL, 10);
 	} while (!is_valid(movetype, value));
+
 	t_move	move = parse_input(movetype, value);
 	print_move(STDERR_FILENO, &move);
 	return (move);
