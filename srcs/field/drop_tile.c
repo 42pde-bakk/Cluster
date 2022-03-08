@@ -54,7 +54,8 @@ const t_tile *get_drop_tile(const t_move *move) {
         return (NULL);
     }
     drop_tile->tile_colour = move->colour;
-    printf("colour = %d\n", move->colour);
+    printf("colour move.colour = %d\n", move->colour);
+	printf("colour tile.colour = %d\n", drop_tile->tile_colour);
     return (drop_downwards(drop_tile));
 }
 

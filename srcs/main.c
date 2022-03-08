@@ -53,7 +53,11 @@ int main(int argc, char **argv) {
 				// and set move.colour to the wanted one
 				players->p[p].amount[(move.type + 1) % 2]++;
 				//update_inventory(&players->p[p], (int)move.type);
-				move.colour = players->p[p].col[move.type];
+				if (move.type == ALPHA)
+					move.colour = col1;
+				else
+					move.colour = col2;
+				// move.colour = players->p[p].col[move.type];
 			}
 			const t_tile *played_tile = execute_move(&move);
 			if ((move.type == ALPHA || move.type == BETA) && played_tile)
