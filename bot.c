@@ -9,7 +9,7 @@
 
 void	do_move(const int fd) {
 	static const char* moves[] = {"A", "B", "R"};
-	int move_type = rand() % 3;
+	int move_type = rand() % 2;
 	int move_value;
 	if (move_type == ROTATE)
 		move_value = rand() % 5 + 1;
