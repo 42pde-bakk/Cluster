@@ -15,6 +15,10 @@ You can use R followed by a number to rotate the board in your favour!\n \
 Good luck!\n");
 }
 
+static void	congratulate_winner(const int winner) {
+	printf("Winner: player %d\n", winner);
+}
+
 int main(int argc, char **argv) {
 	int		ringsize = 5;
 	int 	winner = -1;
@@ -44,6 +48,10 @@ int main(int argc, char **argv) {
 
 			//player plays their turn
 			t_move move = player_request_input(&players->p[p]);
+			if (move.type == ERROR) {
+				winner = !p;
+				continue;
+			}
 			if (move.type == ALPHA || move.type == BETA) {
 				// update inventory
 				update_inventory(&players->p[p], (int)move.type);
@@ -59,10 +67,10 @@ int main(int argc, char **argv) {
 				// 1 if winning_colour is 3 or 4
 				// 0 if winning_colour is 1 or 2
 				winner = (winning_colour > 2);
-				printf("Winner: player %d\n", winner);
 				break;
 			}
 		}
 	}
+	congratulate_winner(winner);
 	return 0;
 }
