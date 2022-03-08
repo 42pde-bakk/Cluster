@@ -21,7 +21,7 @@ static t_move parse_input(const char* input_str, const int value) {
 }
 
 int	is_valid(const char* type, const int value) {
-	return ((type[0] == 'A' || type[0] == 'B' || type[0] == 'R') && type[1] == 0 && (0 < value && value < 9));
+	return ((type[0] == 'A' || type[0] == 'B' || type[0] == 'R') && type[1] == 0 && (0 < value && value <= 9));
 }
 
 t_move	player_request_input(t_player *player) {
