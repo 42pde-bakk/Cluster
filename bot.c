@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include "move.h"
 #include <fcntl.h>
+#include <time.h>
 
 void	do_move(const int fd) {
 	static const char* moves[] = {"A", "B", "R"};
@@ -23,6 +24,7 @@ void	do_move(const int fd) {
 
 int main()
 {
+	srand(time(0));
 	int fd = open("bot.log", O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU | S_IRUSR);
 	if (fd == -1) {
 		dprintf(2, "opening bot.log failed\n");
