@@ -57,6 +57,7 @@ int	get_previous_direction(int dir);
 int get_next_direction(int dir);
 int get_opposite_direction(int dir);
 int get_link_direction(int dir);
+int	direction_add(int dir, int add);
 
 // output/print_grid_terminal.c
 void    print_grid_terminal();
