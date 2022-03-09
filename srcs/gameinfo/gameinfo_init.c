@@ -33,5 +33,4 @@ void	gameinfo_init(const char* size_str) {
 	g_gameinfo.tiles_amount = tile_amount;
 	tile_arr = ft_calloc(tile_amount + 1, sizeof(t_tile*));
 	tile_order = ft_calloc(tile_amount, sizeof(int));
-	printf("size=%ld, tiles_amount=%zu\n", size, tile_amount);
 }

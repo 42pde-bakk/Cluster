@@ -85,7 +85,6 @@ int	init_field() {
 	g_field.center = create_tile();
 	create_first_ring();
 	for (int size = 3; size < g_gameinfo.size + 1; ++size) {
-		printf("spawning new ring, size = %d\n", size);
 		spawn_new_ring(size);
 	}
 	return (0);

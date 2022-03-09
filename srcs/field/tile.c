@@ -25,7 +25,6 @@ t_tile	*create_tile() {
 	t_tile	*tile = ft_calloc(1, sizeof(t_tile));
 	if (!tile)
 		exit(1);
-	printf("creating tile_arr[%d]\n", idx);
 	tile_arr[idx] = tile;
 	tile->idx = idx++;
 	tile->tile_colour = 0;
