@@ -43,10 +43,17 @@ void	pick_tile_colours(t_player *player, int *col_a, int *col_b) {
 }
 
 int update_inventory(t_player *player, t_move *move, int col1, int col2) {
-	 player->amount[(move->type + 1) % 2]++;
-	 if (move->type == ALPHA)
-		 move->colour = col1;
-	 else
-		 move->colour = col2;
+	if (move->type == ROTATE)
+		return (0);
+	int colour_to_refund = (move->type == BETA) ? col1 : col2;
+
+	move->colour = (move->type == ALPHA) ? col1 : col2;
+	if (colour_to_refund == player->col[0])
+		player->amount[0]++;
+	else if (colour_to_refund == player->col[1])
+		player->amount[1]++;
+	else {
+		// other move was empty (because player only has 1 colour tile left to place on board
+	}
  	return (0);
 }
