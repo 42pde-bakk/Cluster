@@ -1,6 +1,9 @@
 NAME = cluster
-INCLUDE = -Iinclude
-HEADER = include/cluster.h
+INCLUDE = -Iinclude -Imlx/include/MLX42
+HEADER = include/cluster.h mlx/include/MLX42
+
+# Owning the Libs
+LIBS = mlx/libmlx42.a
 
 SRC_DIR = srcs
 BUILD_DIR = obj
@@ -41,8 +44,8 @@ all: directories $(NAME)
 directories:
 	@mkdir -p $(BUILD_DIR)
 
-$(NAME): $(OBJECTS) $(HEADER)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+$(NAME): $(OBJECTS) $(HEADER) $(LIBS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) $(LIBS) -lglfw -L ~/.brew/opt/glfw/lib/
 	@printf "$(PINK)Done building $(NAME) $(RESET)\n"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
@@ -51,6 +54,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 
 bot: bot.c
 	$(CC) $(CFLAGS) bot.c $(INCLUDE) -o $@
+
+mlx/libmlx42.a:
+	$(MAKE) -C $(dir $@)
 
 clean:
 	/bin/rm -f $(OBJECTS)
