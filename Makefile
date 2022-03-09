@@ -28,6 +28,9 @@ endif
 ifdef LEAKS
  CFLAGS += -g3 -fsanitize=address
 endif
+ifdef ANIMATION_OFF
+ CFLAGS += -D ANIMATE=0
+endif
 
 SHELL := /bin/bash
 export SHELL

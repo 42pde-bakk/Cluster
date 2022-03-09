@@ -13,6 +13,10 @@
 #include "gameinfo.h"
 #include "utils.h"
 
+#ifndef ANIMATE
+# define ANIMATE 1
+#endif
+
 typedef struct s_tile {
 	int		idx;
 	int		tile_colour;
