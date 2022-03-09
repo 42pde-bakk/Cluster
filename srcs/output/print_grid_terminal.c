@@ -65,11 +65,17 @@ void    print_grid_terminal(int opta, int optb)
 	int i = 0;
 	while (AB[i])
 	{
-		if (AB[i] == 'A' && opta != -1) {
-			printf("%s", items_A[opta + 1]);
+		if (AB[i] == 'A') {
+			if (opta == -1)
+				printf(" ");
+			else
+				printf("%s", items_A[opta + 1]);
 		}
-		else if (AB[i] == 'B' && optb != -1) {
-			printf("%s", items_B[optb + 1]);
+		else if (AB[i] == 'B') {
+			if (optb == -1)
+				printf(" ");
+			else
+				printf("%s", items_B[optb + 1]);
 		}
 		else
 			printf("%c", AB[i]);

@@ -13,6 +13,10 @@
 #include "gameinfo.h"
 #include "utils.h"
 
+#ifndef ANIMATE
+# define ANIMATE 1
+#endif
+
 typedef struct s_tile {
 	int		idx;
 	int		tile_colour;
@@ -47,7 +51,7 @@ int get_link_direction(int dir);
 int	direction_add(int dir, int add);
 
 // output/print_grid_terminal.c
-void    print_grid_terminal();
+void    print_grid_terminal(int opta, int optb);
 
 // srcs/field/tileorder.c
 void	get_indices();

@@ -16,47 +16,44 @@
 #include <string.h>
 
 int	bag_amount_check(t_player *player) {
-	size_t total_amount = player->amount[0] + player->amount[1];
-	if (total_amount == 0)
-		return (0);
-	return (1);
+	return (player->amount[0] + player->amount[1] != 0);
+}
+
+static int	pick_tile_colour(t_player *player) {
+	int picked_col,
+		other_col;
+
+	picked_col = rand() % 2;
+	other_col = !picked_col;
+	if (player->amount[picked_col] > 0) {
+		player->amount[picked_col] -= 1;
+		return (player->col[picked_col]);
+	}
+	else if (player->amount[other_col] > 0) {
+		player->amount[other_col] -= 1;
+		return (player->col[other_col]);
+	}
+	return (0);
 }
 
 void	pick_tile_colours(t_player *player, int *col_a, int *col_b) {
-	int picked_colour;
-
 	srand(time(0));
-	picked_colour = rand() % 2;
-	if (player->amount[picked_colour] > 0) {
-		*col_a = player->col[picked_colour];
-		player->amount[picked_colour] -= 1;
-	}
-	else {
-		*col_a = player->col[(picked_colour + 1) % 2];
-		player->amount[(picked_colour + 1) % 2] -= 1;
-	}
-
-	if (player->amount[0] + player->amount[1] == 0) {
-		*col_b = 0;
-		return;
-	}
-
-	picked_colour = rand() % 2;
-	if (player->amount[picked_colour] > 0) {
-		*col_b = player->col[picked_colour];
-		player->amount[picked_colour] -= 1;
-	}
-	else {
-		*col_b = player->col[(picked_colour + 1) % 2];
-		player->amount[(picked_colour + 1) % 2] -= 1;
-	}
+	*col_a = pick_tile_colour(player);
+	*col_b = pick_tile_colour(player);
 }
 
 int update_inventory(t_player *player, t_move *move, int col1, int col2) {
-	 player->amount[(move->type + 1) % 2]++;
-	 if (move->type == ALPHA)
-		 move->colour = col1;
-	 else
-		 move->colour = col2;
+	if (move->type == ROTATE)
+		return (0);
+	int colour_to_refund = (move->type == BETA) ? col1 : col2;
+
+	move->colour = (move->type == ALPHA) ? col1 : col2;
+	if (colour_to_refund == player->col[0])
+		player->amount[0]++;
+	else if (colour_to_refund == player->col[1])
+		player->amount[1]++;
+	else {
+		// other move was empty (because player only has 1 colour tile left to place on board
+	}
  	return (0);
 }

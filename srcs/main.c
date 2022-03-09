@@ -16,9 +16,9 @@ You can use R followed by a number to rotate the board that amount of times coun
 Good luck!\n");
 }
 
-static void	congratulate_winner(const int winner) {
-	printf("Winner: player %d!"
-		"\n", winner);
+static void	congratulate_winner(const t_player *player) {
+	printf("Winner: player %s!"
+		"\n", player->name);
 }
 
 static void	help() {
@@ -68,8 +68,8 @@ int main(int argc, char **argv) {
 			t_player	*player = &players->p[i];
 			int winning_colour = 0;
 			int col1, col2;
+			printf("START: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
 
-			print_grid_terminal(-1, -1);
 			if (!bag_amount_check(player)) {
 				winner = !i;
 				break;
@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
 				send_turn_info(player, turn, col1, col2);
 			else
 				print_grid_terminal(col1, col2);
+			printf("Took out of bag: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
 
 			//player plays their turn
 			t_move move = player_request_input(player);
@@ -95,11 +96,14 @@ int main(int argc, char **argv) {
 					break;
 				}
 			}
+
 			const t_tile *played_tile = execute_move(&move);
 			if ((move.type == ALPHA || move.type == BETA) && played_tile)
 				winning_colour = win_check_this_tile(played_tile, g_gameinfo.size - 1);
 			else if (move.type == ROTATE)
 				winning_colour = win_check_all_tiles(g_gameinfo.size - 1);
+			printf("Placed on board: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
+
 			if (winning_colour) {
 				// 1 if winning_colour is 3 or 4
 				// 0 if winning_colour is 1 or 2
@@ -109,7 +113,7 @@ int main(int argc, char **argv) {
 		}
 		turn += 1;
 	}
-	congratulate_winner(winner);
+	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
 	free(players);
 	exit(0);

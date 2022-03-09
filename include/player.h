@@ -23,6 +23,7 @@
 
 typedef struct s_player {
 	int		idx;
+	char	*name;
 	pid_t	pid;
 	int _stdin[2];
 	int _stdout[2];

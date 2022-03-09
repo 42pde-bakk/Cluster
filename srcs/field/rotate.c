@@ -54,8 +54,10 @@ void let_fall(int column_amount) {
 				drop_recursive_upwards(t);
             }
         }
+#if ANIMATE
         print_grid_terminal(-1, -1);
 		usleep(200000);
+#endif
     }
 }
 
