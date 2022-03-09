@@ -17,6 +17,8 @@
 # define ANIMATE 1
 #endif
 
+typedef struct s_player	t_player;
+
 typedef struct s_tile {
 	int		idx;
 	int		tile_colour;
@@ -52,6 +54,7 @@ int	direction_add(int dir, int add);
 
 // output/print_grid_terminal.c
 void    print_grid_terminal(int opta, int optb);
+void	print_inventory(const t_player *player);
 
 // srcs/field/tileorder.c
 void	get_indices();

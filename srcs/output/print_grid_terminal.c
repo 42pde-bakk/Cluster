@@ -1,9 +1,8 @@
 /* Created by jaberkro on march 5th 22. */
 
 #include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include "cluster.h"
+#include "player.h"
 
 #define RED   "\x1B[31m"
 #define GRN   "\x1B[32m"
@@ -66,20 +65,22 @@ void    print_grid_terminal(int opta, int optb)
 	while (AB[i])
 	{
 		if (AB[i] == 'A') {
-			if (opta == -1)
-				printf(" ");
-			else
-				printf("%s", items_A[opta + 1]);
+			printf("%s", items_A[opta + 1]);
 		}
 		else if (AB[i] == 'B') {
-			if (optb == -1)
-				printf(" ");
-			else
-				printf("%s", items_B[optb + 1]);
+			printf("%s", items_B[optb + 1]);
 		}
 		else
 			printf("%c", AB[i]);
 		i++;
 	}
 	printf("\n");
+}
+
+void	print_inventory(const t_player *player) {
+	static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
+
+	printf("Player %s's inventory after drawing honkychonkies:\n", player->name);
+	printf("\t%zu left of %s\n", player->amount[0], items_double[player->col[0] + 1]);
+	printf("\t%zu left of %s\n", player->amount[1], items_double[player->col[1] + 1]);
 }

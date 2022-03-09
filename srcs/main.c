@@ -68,7 +68,6 @@ int main(int argc, char **argv) {
 			t_player	*player = &players->p[i];
 			int winning_colour = 0;
 			int col1, col2;
-			printf("START: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
 
 			if (!bag_amount_check(player)) {
 				winner = !i;
@@ -76,10 +75,10 @@ int main(int argc, char **argv) {
 			}
 			pick_tile_colours(player, &col1, &col2);
 			if (player->pid) // player is a bot
-				send_turn_info(player, turn, col1, col2);
+				send_turn_info(players, player, turn, col1, col2);
 			else
 				print_grid_terminal(col1, col2);
-			printf("Took out of bag: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
+			print_inventory(player);
 
 			//player plays their turn
 			t_move move = player_request_input(player);
