@@ -1,5 +1,5 @@
 NAME = cluster
-INCLUDE = -Iinclude
+INCLUDE = -Iinclude -Imlx/include
 HEADER = include/cluster.h
 
 SRC_DIR = srcs
