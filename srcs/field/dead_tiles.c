@@ -27,7 +27,7 @@ void	shuffle(int *array, size_t n) {
 }
 
 void	spawn_dead_tiles() {
-	uint32_t dead_amount;
+	int dead_amount;
 	int	arr[g_gameinfo.tiles_amount];
 
 	srand(time(0));
