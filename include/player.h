@@ -53,6 +53,6 @@ int update_inventory(t_player *player, t_move *move, int col1, int col2);
 
 // srcs/player/output.c
 void	send_game_info(const t_player *player);
-void	send_turn_info(const t_player *player, int turn, int col1, int col2);
+void	send_turn_info(const t_players *players, const t_player *player, int turn, int col1, int col2);
 
 #endif

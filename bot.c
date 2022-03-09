@@ -50,6 +50,14 @@ int main()
 
 	// game loop
 	while (1) {
+		int nb_players;
+		scanf("%d", &nb_players);
+		for (int i = 0; i < nb_players; i++) {
+			int colours[2];
+			int amounts[2];
+			scanf("%d %d", &colours[0], &amounts[0]);
+			scanf("%d %d", &colours[1], &amounts[1]);
+		}
 		// the game lasts 24 days: 0-23
 		int turn;
 		// the current amount of played tiles
