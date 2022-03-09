@@ -31,6 +31,9 @@ endif
 ifdef ANIMATION
  CFLAGS += -D ANIMATE=$(ANIMATION)
 endif
+ifdef VANILLA
+ CFLAGS += -D VANILLA=1
+endif
 
 SHELL := /bin/bash
 export SHELL
