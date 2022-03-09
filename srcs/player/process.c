@@ -28,6 +28,7 @@ void	child_close_pipes(t_player *player) {
 int init_player_process(const char* path, t_player* player) {
 	pid_t	pid;
 	const char	*argv[2] = {path, NULL};
+	player->name = (char*)path;
 
 	assert(player != NULL);
 	init_pipes(player);

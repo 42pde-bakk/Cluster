@@ -30,6 +30,9 @@ endif
 ifdef LEAKS
  CFLAGS += -g3 -fsanitize=address
 endif
+ifdef ANIMATION
+ CFLAGS += -D ANIMATE=$(ANIMATION)
+endif
 
 SHELL := /bin/bash
 export SHELL

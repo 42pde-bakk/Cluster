@@ -5,12 +5,12 @@
 #include <assert.h>
 #include "cluster.h"
 
-int	tile_order[TILES_AMOUNT];
+int	*tile_order;
 int	write_idx;
 int	read_idx;
 
 static bool	not_in_arr(int id) {
-	for (int i = 0; i < TILES_AMOUNT; ++i) {
+	for (int i = 0; i < g_gameinfo.tiles_amount; ++i) {
 		if (tile_order[i] == id)
 			return (false);
 	}
@@ -18,7 +18,7 @@ static bool	not_in_arr(int id) {
 }
 
 void	print_arr() {
-	for (int i = 0; i < TILES_AMOUNT; ++i)
+	for (int i = 0; i < g_gameinfo.tiles_amount; ++i)
 		printf("%d ", tile_order[i]);
 	printf("\n");
 }
@@ -39,17 +39,9 @@ static void	add_to_arr(int left_child_dir, int right_child_dir) {
 	}
 }
 
-size_t	get_size(size_t ringsize) {
-	size_t total = 1;
-
-	for (size_t i = 1; i < ringsize; ++i) {
-		total += 6 * i;
-	}
-	return (total);
-}
 
 static void	clear_arr() {
-	for (size_t i = 0; i < TILES_AMOUNT; ++i) {
+	for (int i = 0; i < g_gameinfo.tiles_amount; ++i) {
 		tile_order[i] = -1;
 	}
 }
@@ -64,7 +56,7 @@ void	get_indices() {
 	write_idx = 1;
 	read_idx = 0;
 
-	for (int i = 0; i < TILES_AMOUNT; ++i) {
+	for (int i = 0; i < g_gameinfo.tiles_amount; ++i) {
 		add_to_arr(left_child_dir, right_child_dir);
 	}
 }

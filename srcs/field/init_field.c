@@ -5,7 +5,7 @@
 #include "cluster.h"
 
 t_field g_field;
-t_tile	*tile_arr[TILES_AMOUNT + 1];
+t_tile	**tile_arr;
 
 
 // a is the source tile
@@ -79,13 +79,12 @@ int	create_first_ring() {
 }
 
 int	init_field() {
-	size_t size = 3;
 	g_field.gravity = 3;
 	g_field.number_played_tiles = 0;
 
 	g_field.center = create_tile();
 	create_first_ring();
-	for (; size < 6; ++size) {
+	for (int size = 3; size < g_gameinfo.size + 1; ++size) {
 		spawn_new_ring(size);
 	}
 	return (0);

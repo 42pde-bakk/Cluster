@@ -23,6 +23,7 @@
 
 typedef struct s_player {
 	int		idx;
+	char	*name;
 	pid_t	pid;
 	int _stdin[2];
 	int _stdout[2];
@@ -43,7 +44,7 @@ t_move	player_request_input(t_player *player);
 int init_player_process(const char* path, t_player* player);
 
 // srcs/player/player.c
-t_players       *init_players(int ringsize);
+t_players       *init_players(int tiles_amount);
 
 // srcs/player/inventory.c
 int		bag_amount_check(t_player *player);
@@ -52,6 +53,6 @@ int update_inventory(t_player *player, t_move *move, int col1, int col2);
 
 // srcs/player/output.c
 void	send_game_info(const t_player *player);
-void	send_turn_info(const t_player *player, int turn, int col1, int col2);
+void	send_turn_info(const t_players *players, const t_player *player, int turn, int col1, int col2);
 
 #endif

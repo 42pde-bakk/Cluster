@@ -7,14 +7,14 @@
 #include <fcntl.h>
 #include <time.h>
 
-void	do_move(const int fd) {
+void	do_move(const int fd, const int gridsize) {
 	static const char* moves[] = {"A", "B", "R"};
 	int move_type = rand() % 2;
 	int move_value;
 	if (move_type == ROTATE)
 		move_value = rand() % 5 + 1;
 	else {
-		move_value = rand() % 9 + 1;
+		move_value = rand() % (gridsize * 2 - 1) + 1;
 	}
 	printf("%s %d\n", moves[move_type], move_value);
 	fflush(stdout);
@@ -31,8 +31,9 @@ int main()
 		return (1);
 	}
 	// 37
+	int	gridsize;
 	int nb_tiles;
-	scanf("%d", &nb_tiles);
+	scanf("%d %d", &gridsize, &nb_tiles);
 
 	for (int i = 0; i < nb_tiles; i++) {
 		// 0 is the center cell, the next cells spiral outwards
@@ -49,6 +50,14 @@ int main()
 
 	// game loop
 	while (1) {
+		int nb_players;
+		scanf("%d", &nb_players);
+		for (int i = 0; i < nb_players; i++) {
+			int colours[2];
+			int amounts[2];
+			scanf("%d %d", &colours[0], &amounts[0]);
+			scanf("%d %d", &colours[1], &amounts[1]);
+		}
 		// the game lasts 24 days: 0-23
 		int turn;
 		// the current amount of played tiles
@@ -70,7 +79,7 @@ int main()
 		// To debug: fprintf(stderr, "Debug messages...\n");
 
 		// ALPHA cellIdx | BETA cellIdx | ROTATE amount
-		do_move(fd);
+		do_move(fd, gridsize);
 	}
 	return 0;
 }

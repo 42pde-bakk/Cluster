@@ -5,10 +5,10 @@
 #include "cluster.h"
 #include <assert.h>
 #include <move.h>
+#include "utils.h"
 
-t_tile  *bottoms[9];
+t_tile  **bottoms;
 
-t_tile	*falling_tiles[TILES_AMOUNT];
 bool	g_movement;
 
 static void    drop_recursive_upwards(t_tile *tile) {
@@ -34,42 +34,46 @@ static void    find_bottoms() {
 
     t_tile  *left = g_field.corners[g_field.gravity],
             *right = g_field.corners[g_field.gravity];
-    for (int i = 0; i < 5; ++i) {
-        bottoms[4 - i] = left;
-        bottoms[4 + i] = right;
+
+    for (int i = 0; i < g_gameinfo.size; ++i) {
+    	// -1 cus bottoms are indexed 0-8, but labeled 1-9
+        bottoms[g_gameinfo.size - 1 - i] = left;
+        bottoms[g_gameinfo.size - 1 + i] = right;
         left = left->neighbours[left_dir];
         right = right->neighbours[right_dir];
     }
 }
 
-void    let_fall() {
+void let_fall(int column_amount) {
 	g_movement = true;
     while (g_movement) {
     	g_movement = false;
-        for (int i = 0; i < 9; ++i) {
+        for (int i = 0; i < column_amount; ++i) {
         	t_tile	*t = bottoms[i];
             if (t) {
 				drop_recursive_upwards(t);
             }
         }
+#if ANIMATE
         print_grid_terminal(-1, -1);
 		usleep(200000);
+#endif
     }
 }
 
 const t_tile *rotate_field(const t_move *move) {
+	const int column_amount = 2 * g_gameinfo.size + 1;
+
+	bottoms = ft_calloc(column_amount, sizeof(t_tile*));
+
 	int value = move->value;
     g_field.gravity = direction_add(g_field.gravity, -value);
 
-    printf("gravity now is %d\n", g_field.gravity);
 
     find_bottoms();
-    for (int i = 0; i < 9; ++i) {
-    	printf("bottoms[%d]: ", i);
-    	print_tile(bottoms[i]);
-    }
-    let_fall();
+	let_fall(column_amount);
 
+    free(bottoms);
     // No need to update the corners
     return (NULL); //
 }

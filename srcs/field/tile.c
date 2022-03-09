@@ -22,7 +22,7 @@ void	print_tile(const t_tile *t) {
 t_tile	*create_tile() {
 	static int idx = 0;
 
-	t_tile	*tile = calloc(1, sizeof(t_tile));
+	t_tile	*tile = ft_calloc(1, sizeof(t_tile));
 	if (!tile)
 		exit(1);
 	tile_arr[idx] = tile;
