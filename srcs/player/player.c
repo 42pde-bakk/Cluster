@@ -22,6 +22,7 @@ t_player init_player(int col1, int col2, int ringsize)
 		.amount = { amount, amount },
 		.idx = idx++
     };
+    player.name = (idx == 1) ? "1" : "2";
     player.reader = stdin;
     return (player);
 }

@@ -16,9 +16,9 @@ You can use R followed by a number to rotate the board that amount of times coun
 Good luck!\n");
 }
 
-static void	congratulate_winner(const int winner) {
-	printf("Winner: player %d!"
-		"\n", winner);
+static void	congratulate_winner(const t_player *player) {
+	printf("Winner: player %s!"
+		"\n", player->name);
 }
 
 static void	help() {
@@ -69,7 +69,6 @@ int main(int argc, char **argv) {
 			int winning_colour = 0;
 			int col1, col2;
 
-			print_grid_terminal(-1, -1);
 			if (!bag_amount_check(player)) {
 				winner = !i;
 				break;
@@ -95,6 +94,7 @@ int main(int argc, char **argv) {
 					break;
 				}
 			}
+
 			const t_tile *played_tile = execute_move(&move);
 			if ((move.type == ALPHA || move.type == BETA) && played_tile)
 				winning_colour = win_check_this_tile(played_tile, g_gameinfo.size - 1);
@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
 		}
 		turn += 1;
 	}
-	congratulate_winner(winner);
+	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
 	free(players);
 	exit(0);
