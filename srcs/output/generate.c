@@ -47,6 +47,7 @@ void add_arrows(char *data)
 	{
 		if (is_center_node(data, x))
 		{
+			sprintf(num, "%d", i);
 			i++;
 			// padding missing but who cares
 			edit_buf(x - 1, 0, data, num);
