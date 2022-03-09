@@ -40,6 +40,9 @@ extern t_field	g_field;
 // srcs/field/init_field.c
 int	init_field();
 
+// srcs/field/dead_tiles.c
+void	spawn_dead_tiles();
+
 // srcs/field/tile.c
 int		get_n(const t_tile *t, int dir);
 void	print_tile(const t_tile *t);

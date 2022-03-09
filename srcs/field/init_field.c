@@ -87,5 +87,8 @@ int	init_field() {
 	for (int size = 3; size < g_gameinfo.size + 1; ++size) {
 		spawn_new_ring(size);
 	}
+	spawn_dead_tiles();
+
+	// only if not vanilla
 	return (0);
 }
