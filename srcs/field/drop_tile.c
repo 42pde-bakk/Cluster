@@ -23,7 +23,7 @@ const t_tile *drop_downwards(t_tile *tile) {
 
 const t_tile *get_drop_tile(const t_move *move) {
     // assuming 1 is the leftmost drop you can make
-	print_move(2, move);
+	// print_move(2, move);
     const int upwards = get_opposite_direction(g_field.gravity);
     int pos = move->value;
     t_tile  *drop_tile = g_field.corners[upwards];
