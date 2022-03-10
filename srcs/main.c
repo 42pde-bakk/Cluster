@@ -89,11 +89,10 @@ int main(int argc, char **argv) {
 #if !ANIMATION
 			if (players->p[0].pid && players->p[1].pid) {
 				print_grid_terminal(col1, col2);
+				print_inventory(player);
 				usleep(ANIMATION_USLEEP * 5000);
-				printf("here\n");
 			}
 #endif
-			printf("animation=%d\n", ANIMATION);
 
 			//player plays their turn
 			t_move move = player_request_input(player, turn);
