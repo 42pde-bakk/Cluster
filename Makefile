@@ -29,10 +29,13 @@ ifdef DEBUG
  CFLAGS += -g3
 endif
 ifdef LEAKS
- CFLAGS += -g3 -fsanitize=address
+ CFLAGS += -fsanitize=address
 endif
 ifdef ANIMATION
  CFLAGS += -D ANIMATE=$(ANIMATION)
+endif
+ifdef THREAD
+ CFLAGS += -fsanitize=thread
 endif
 
 SHELL := /bin/bash
