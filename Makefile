@@ -29,7 +29,7 @@ ifdef LEAKS
  CFLAGS += -g3 -fsanitize=address
 endif
 ifdef ANIMATION
- CFLAGS += -D ANIMATE=$(ANIMATION)
+ CFLAGS += -D ANIMATION=$(ANIMATION)
 endif
 ifdef VANILLA
  CFLAGS += -D VANILLA=1
