@@ -86,7 +86,10 @@ int main(int argc, char **argv) {
 				winner = !i;
 				break;
 			}
-			print_move(2, &move);
+#if !ANIMATE
+			print_grid_terminal(-1, -1);
+			usleep(20000);
+#endif
 			if (move.type == ALPHA || move.type == BETA) {
 				// update inventory
 				update_inventory(player, &move, col1, col2);
@@ -112,6 +115,10 @@ int main(int argc, char **argv) {
 		}
 		turn += 1;
 	}
+#if !ANIMATE
+	print_grid_terminal(-1, -1);
+			usleep(20000);
+#endif
 	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
 	free(players);
