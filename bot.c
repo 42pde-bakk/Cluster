@@ -18,7 +18,6 @@ void	do_move(const int fd, const int gridsize) {
 	}
 	printf("%s %d\n", moves[move_type], move_value);
 	fflush(stdout);
-	dprintf(2, "MOVE: %s %d\n", moves[move_type], move_value);
 	dprintf(fd, "%s %d\n", moves[move_type], move_value);
 }
 
@@ -30,10 +29,14 @@ int main()
 		dprintf(2, "opening bot.log failed\n");
 		return (1);
 	}
+	int timeout;
+	int timeout_turn0;
+	scanf("%d %d", &timeout, &timeout_turn0);
 	// 37
 	int	gridsize;
 	int nb_tiles;
-	scanf("%d %d", &gridsize, &nb_tiles);
+	int	win_condition;
+	scanf("%d %d %d", &gridsize, &nb_tiles, &win_condition);
 
 	for (int i = 0; i < nb_tiles; i++) {
 		// 0 is the center cell, the next cells spiral outwards

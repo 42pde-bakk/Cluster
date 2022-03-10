@@ -13,8 +13,15 @@
 #include "gameinfo.h"
 #include "utils.h"
 
-#ifndef ANIMATE
-# define ANIMATE 1
+#ifndef TIME_OUT
+# define TIME_OUT 50 // ms
+#endif
+
+#ifndef ANIMATION
+# define ANIMATION 1
+#endif
+#ifndef ANIMATION_USLEEP
+# define ANIMATION_USLEEP 20
 #endif
 
 typedef struct s_player	t_player;

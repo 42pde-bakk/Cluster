@@ -36,6 +36,6 @@ const t_tile	*execute_move(const t_move *move) {
 		[ROTATE] = &rotate_field,
 		[ERROR] = &wrong_move,
 	};
-	print_move(2, move);
+	// print_move(2, move);
 	return (jumptable[move->type](move));
 }

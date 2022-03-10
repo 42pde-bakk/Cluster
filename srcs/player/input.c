@@ -10,6 +10,8 @@
 #include <cluster.h>
 #include "colours.h"
 #include <limits.h>
+#include <unistd.h>
+#include <signal.h>
 
 static t_move parse_input(const char input, const int value) {
 	static const char*	strs[] = {
@@ -57,14 +59,28 @@ int	is_valid(char type, const int value) {
 	return (1);
 }
 
-t_move	player_request_input(t_player *player) {
+t_player *g_player = NULL;
+void	sigalarm_handler(int dummy) {
+	(void)dummy;
+	dprintf(STDERR_FILENO, "Player %s timed out (TIME_OUT is %d ms, but %d ms for the first turn)!\n", g_player->name, TIME_OUT, TIME_OUT * 20);
+	fclose(g_player->reader);
+}
+
+t_move player_request_input(t_player *player, int turn) {
 	char	movetype = 0;
 	char	*input_line = NULL;
 	size_t	line_cap = 0;
-	size_t	line_len = 0;
-	int		value = 0;
+	size_t	line_len;
+	int		value;
 
-	(void)player;
+	if (player->pid) {
+		g_player = player;
+		signal(SIGALRM, &sigalarm_handler);
+		if (!turn) // only for the first turn
+			ualarm(TIME_OUT * 1000 * 20, 0);
+		else
+			ualarm(TIME_OUT * 1000, 0);
+	}
 	do {
 		line_len = getline(&input_line, &line_cap, player->reader);
 		if (line_len == ULONG_MAX)
@@ -73,8 +89,7 @@ t_move	player_request_input(t_player *player) {
 			movetype = (char)toupper(input_line[0]);
 		value = (int)strtol(input_line + 2, NULL, 10);
 	} while (!is_valid(movetype, value));
-
+	ualarm(0, 0);
 	t_move	move = parse_input(movetype, value);
-	print_move(STDERR_FILENO, &move);
 	return (move);
 }

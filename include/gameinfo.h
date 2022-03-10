@@ -11,7 +11,8 @@ typedef struct s_tile t_tile;
 
 typedef struct s_gameinfo {
 	int	size,
-		tiles_amount;
+		tiles_amount,
+		connect;
 }	t_gameinfo;
 
 extern t_gameinfo	g_gameinfo;

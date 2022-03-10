@@ -1,5 +1,5 @@
 NAME = cluster
-INCLUDE = -Iinclude
+INCLUDE = -Iinclude -Imlx/include
 HEADER = include/cluster.h
 
 SRC_DIR = srcs
@@ -33,6 +33,12 @@ ifdef ANIMATION
 endif
 ifdef VANILLA
  CFLAGS += -D VANILLA=1
+endif
+ifdef TIME_OUT
+ CFLAGS += -D TIME_OUT=$(TIME_OUT)
+endif
+ifdef ANIMATION_USLEEP
+ CFLAGS += -D ANIMATION_USLEEP=$(ANIMATION_USLEEP)
 endif
 
 SHELL := /bin/bash
