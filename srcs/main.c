@@ -16,9 +16,9 @@ You can use R followed by a number to rotate the board that amount of times coun
 Good luck!\n");
 }
 
-static void	congratulate_winner(const t_player *player) {
-	printf("Winner: player %s!"
-		"\n", player->name);
+static void	congratulate_winner(const t_player *winner, const t_player *loser) {
+	printf("Winner: player %s!\n", winner->name);
+	printf("Loser: player %s!\n", loser->name);
 }
 
 static void	help() {
@@ -26,18 +26,35 @@ static void	help() {
 	exit(0);
 }
 
+static void	error_duplicate_flag() {
+	dprintf(STDERR_FILENO, "Error: duplicate flags found. Please make up your mind!\n");
+	exit(EXIT_FAILURE);
+}
+
 static void	parser(int argc, char **argv) {
-	gameinfo_init("5");
+//	gameinfo_init("5");
 	for (int i = 1; i < argc; ++i) {
 		if (strcmp(argv[i], "--help") == 0) {
 			help();
 		}
 		if (strncmp(argv[i], "--size=", 7) == 0) {
+			if (g_gameinfo.size != 0)
+				error_duplicate_flag();
 			gameinfo_init(&argv[i][7]);
 		}
 		if (strncmp(argv[i], "--connect=", 10) == 0) {
+			if (g_gameinfo.connect != 0)
+				error_duplicate_flag();
 			g_gameinfo.connect = (int)strtol(&argv[i][10], NULL, 10);
 		}
+	}
+	if (g_gameinfo.size == 0)
+		gameinfo_init("5");
+	if (g_gameinfo.connect == 0) {
+		if (g_gameinfo.size >= 5)
+			g_gameinfo.connect = 4;
+		else
+			g_gameinfo.connect = g_gameinfo.size - 1;
 	}
 }
 
@@ -45,12 +62,13 @@ void	parse_bots(int ac, char **av, t_players *players) {
 	int	player_amount = 0;
 	struct stat stat_struct;
 
-	for (int i = 1; i < ac && player_amount < MAX_PLAYER && av[i]; ++i) {
+	for (int i = 1; i < ac && player_amount < MAX_PLAYER + 1; ++i) {
 		// check if it doesnt start with -- and that the file exists
-		if (strcmp(av[i], "--") != 0 && stat(av[i], &stat_struct) == 0) {
-			t_player	*player = &players->p[i - 1];
+		if (strncmp(av[i], "--", 2) != 0 && stat(av[i], &stat_struct) == 0) {
+			t_player	*player = &players->p[player_amount];
 			init_player_process(av[i], player);
 			send_game_info(player);
+			player_amount++;
 		}
 	}
 }
@@ -91,6 +109,9 @@ int main(int argc, char **argv) {
 				print_inventory(player);
 				usleep(ANIMATION_USLEEP * 5000);
 			}
+#else
+			if (players->p[0].pid && players->p[1].pid)
+				usleep(5000 * ANIMATION_USLEEP);
 #endif
 
 			//player plays their turn
@@ -129,7 +150,7 @@ int main(int argc, char **argv) {
 	print_grid_terminal(-1, -1);
 			usleep(200000);
 #endif
-	congratulate_winner(&players->p[winner]);
+	congratulate_winner(&players->p[winner], &players->p[!winner]);
 	gameinfo_dtor();
 	free(players);
 	exit(0);
