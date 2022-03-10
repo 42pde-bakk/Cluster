@@ -18,7 +18,6 @@ void	do_move(const int fd, const int gridsize) {
 	}
 	printf("%s %d\n", moves[move_type], move_value);
 	fflush(stdout);
-	dprintf(2, "MOVE: %s %d\n", moves[move_type], move_value);
 	dprintf(fd, "%s %d\n", moves[move_type], move_value);
 }
 
