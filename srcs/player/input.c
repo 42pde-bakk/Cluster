@@ -83,11 +83,14 @@ t_move player_request_input(t_player *player, int turn) {
 	}
 	do {
 		line_len = getline(&input_line, &line_cap, player->reader);
-		if (line_len == ULONG_MAX)
+		if (line_len == ULONG_MAX) {
+			free(input_line);
 			return (error_move());
+		}
 		if (line_len >= 4 && input_line[1] == ' ')
 			movetype = (char)toupper(input_line[0]);
 		value = (int)strtol(input_line + 2, NULL, 10);
+		free(input_line);
 	} while (!is_valid(movetype, value));
 	ualarm(0, 0);
 	t_move	move = parse_input(movetype, value);
