@@ -46,7 +46,6 @@ void	spawn_dead_tiles() {
 			if (check < 10 && vibe_check(tile_arr[arr[i]])) {
 				dead_amount--;
 				tile_arr[arr[i]]->tile_colour = -1;
-				print_tile(tile_arr[i]);
 			}
 		}
 	}

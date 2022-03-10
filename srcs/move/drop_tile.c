@@ -30,7 +30,7 @@ const t_tile *get_drop_tile(const t_move *move) {
     int start = g_gameinfo.size; // because it's in the middle (check the figure Jorien made)
     int movedirection;
     int delta = 1;
-	print_tile(drop_tile);
+
     if (pos < start) {
         movedirection = get_next_direction(g_field.gravity);
         delta = -1;
