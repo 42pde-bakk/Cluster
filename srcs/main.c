@@ -86,6 +86,14 @@ int main(int argc, char **argv) {
 			else
 				print_grid_terminal(col1, col2);
 			print_inventory(player);
+#if !ANIMATION
+			if (players->p[0].pid && players->p[1].pid) {
+				print_grid_terminal(col1, col2);
+				usleep(ANIMATION_USLEEP * 5000);
+				printf("here\n");
+			}
+#endif
+			printf("animation=%d\n", ANIMATION);
 
 			//player plays their turn
 			t_move move = player_request_input(player, turn);
@@ -104,9 +112,9 @@ int main(int argc, char **argv) {
 
 			const t_tile *played_tile = execute_move(&move);
 			if ((move.type == ALPHA || move.type == BETA) && played_tile)
-				winning_colour = win_check_this_tile(played_tile, g_gameinfo.size - 1);
+				winning_colour = win_check_this_tile(played_tile, g_gameinfo.connect);
 			else if (move.type == ROTATE)
-				winning_colour = win_check_all_tiles(g_gameinfo.size - 1);
+				winning_colour = win_check_all_tiles(g_gameinfo.connect);
 			printf("Placed on board: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
 
 			if (winning_colour) {
