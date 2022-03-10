@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
 		}
 		turn += 1;
 	}
-#if !ANIMATE
+#if !ANIMATION
 	print_grid_terminal(-1, -1);
 			usleep(200000);
 #endif
