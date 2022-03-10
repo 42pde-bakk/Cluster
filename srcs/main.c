@@ -102,7 +102,8 @@ int main(int argc, char **argv) {
 				send_turn_info(players, player, turn, col1, col2);
 			else
 				print_grid_terminal(col1, col2);
-			print_inventory(player);
+			if (player->pid == 0 || (player->pid && players->p[!i].pid))
+				print_inventory(player);
 #if !ANIMATION
 			if (players->p[0].pid && players->p[1].pid) {
 				print_grid_terminal(col1, col2);
@@ -111,7 +112,7 @@ int main(int argc, char **argv) {
 			}
 #else
 			if (players->p[0].pid && players->p[1].pid)
-				usleep(5000 * ANIMATION_USLEEP);
+				usleep(7500 * ANIMATION_USLEEP);
 #endif
 
 			//player plays their turn
@@ -148,7 +149,7 @@ int main(int argc, char **argv) {
 	}
 #if !ANIMATION
 	print_grid_terminal(-1, -1);
-			usleep(200000);
+			usleep(10000 * ANIMATION_USLEEP);
 #endif
 	congratulate_winner(&players->p[winner], &players->p[!winner]);
 	gameinfo_dtor();
