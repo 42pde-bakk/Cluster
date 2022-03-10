@@ -1,6 +1,7 @@
 # Cluster
 ## The game made by Clusterfuck
 @jaberkro, @tbouma, @okruitho and @pde-bakk.
+###### Every team has built a clusterfuck of a codebase, we are the only ones who actually own up to it!
 
 ### Playing
 Start playing by running `./cluster`.<br>
