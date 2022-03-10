@@ -62,7 +62,6 @@ int main(int argc, char **argv) {
 	parser(argc, argv);
 	if (g_gameinfo.connect <= 1 || g_gameinfo.connect >= g_gameinfo.size) {
 		dprintf(STDERR_FILENO, "Error. Please provide a valid win condition!\n");
-		dprintf(2, "connect=%d, size=%d\n", g_gameinfo.connect, g_gameinfo.size);
 		exit(1);
 	}
 	init_field();
@@ -100,6 +99,7 @@ int main(int argc, char **argv) {
 				winner = !i;
 				break;
 			}
+
 			if (move.type == ALPHA || move.type == BETA) {
 				// update inventory
 				update_inventory(player, &move, col1, col2);
@@ -125,6 +125,10 @@ int main(int argc, char **argv) {
 		}
 		turn += 1;
 	}
+#if !ANIMATE
+	print_grid_terminal(-1, -1);
+			usleep(200000);
+#endif
 	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
 	free(players);

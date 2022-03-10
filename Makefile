@@ -31,6 +31,9 @@ endif
 ifdef ANIMATION
  CFLAGS += -D ANIMATION=$(ANIMATION)
 endif
+ifdef VANILLA
+ CFLAGS += -D VANILLA=1
+endif
 ifdef TIME_OUT
  CFLAGS += -D TIME_OUT=$(TIME_OUT)
 endif
@@ -55,14 +58,18 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $(INCLUDE) $^ -o $@
 
-bot: bot.c
-	$(CC) $(CFLAGS) bot.c $(INCLUDE) -o $@
+bot: Peer.c Jorien.c Tiemen.c Oscar.c
+	$(CC) $(CFLAGS) Peer.c $(INCLUDE) -o Peer
+	$(CC) $(CFLAGS) Jorien.c $(INCLUDE) -o Jorien
+	$(CC) $(CFLAGS) Tiemen.c $(INCLUDE) -o Tiemen
+	$(CC) $(CFLAGS) Oscar.c $(INCLUDE) -o Oscar
 
 clean:
 	/bin/rm -f $(OBJECTS)
 
 fclean: clean
 	/bin/rm -f $(NAME)
+	/bin/rm -f Peer Tiemen Jorien Oscar
 
 re: fclean all
 

@@ -67,8 +67,12 @@ const t_tile *rotate_field(const t_move *move) {
 	bottoms = ft_calloc(column_amount, sizeof(t_tile*));
 
 	int value = move->value;
-    g_field.gravity = direction_add(g_field.gravity, -value);
-
+	int new_gravity = direction_add(g_field.gravity, -value);
+	while (g_field.gravity != new_gravity) {
+		g_field.gravity = get_previous_direction(g_field.gravity);
+		print_grid_terminal(-1, -1);
+		usleep(200000);
+	}
 
     find_bottoms();
 	let_fall(column_amount);

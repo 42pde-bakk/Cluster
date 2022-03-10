@@ -49,7 +49,6 @@ int init_player_process(const char* path, t_player* player) {
 	}
 	else {
 		//Parent process save pids of the children
-		printf("Player %s pid: %d\n", path, pid);
 		player->pid = pid;
 		//Close the pipes
 		close(player->_stdin[STDIN_FILENO]); //IN FOR PLAYER SO CLOSE IN

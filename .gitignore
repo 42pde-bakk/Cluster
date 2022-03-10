@@ -38,6 +38,10 @@
 cluster
 client
 bot
+Peer
+Jorien
+Tiemen
+Oscar
 
 # Debug files
 *.dSYM/
