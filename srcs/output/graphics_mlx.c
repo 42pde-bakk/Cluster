@@ -64,6 +64,17 @@ void draw_line(mlx_image_t* image, int32_t x1, int32_t y1, int32_t x2, int32_t y
 	}
 }
 
+void	draw_square(mlx_image_t* g_img, int x1, int y1, int x2, int y2, int radius, unsigned int color)
+{
+	for (int j = y1; j <= y2; j++)
+	{
+		for (int i = x1; i <= x2; i++)
+		{
+			mlx_put_pixel(g_img, i, j, color);
+		}
+	}
+}
+
 void draw_hex(mlx_image_t* g_img, int x, int y, int radius, unsigned int color)
 {
 	float lastx = 0;
@@ -176,7 +187,7 @@ int32_t	mlx_main(void)
 	int radius = WIDTH / amount / 4;
 	draw_horizontal_grid(g_img, 500, 500, radius, amount, 0xffffffff);
 
-	mlx_image_to_window(mlx, g_img, 0, 0, 0);
+	mlx_image_to_window(mlx, g_img, 0, 0);
 	//mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
