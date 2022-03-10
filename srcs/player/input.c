@@ -59,8 +59,6 @@ int	is_valid(char type, const int value) {
 	return (1);
 }
 
-
-
 t_player *g_player = NULL;
 void	sigalarm_handler(int dummy) {
 	(void)dummy;

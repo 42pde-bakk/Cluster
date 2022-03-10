@@ -34,7 +34,9 @@ static void	parser(int argc, char **argv) {
 		}
 		if (strncmp(argv[i], "--size=", 7) == 0) {
 			gameinfo_init(&argv[i][7]);
-			++i; // to skip past the size
+		}
+		if (strncmp(argv[i], "--connect=", 10) == 0) {
+			g_gameinfo.connect = (int)strtol(&argv[i][10], NULL, 10);
 		}
 	}
 }
@@ -58,6 +60,11 @@ int main(int argc, char **argv) {
 	int 	winner = -1;
 
 	parser(argc, argv);
+	if (g_gameinfo.connect <= 1 || g_gameinfo.connect >= g_gameinfo.size) {
+		dprintf(STDERR_FILENO, "Error. Please provide a valid win condition!\n");
+		dprintf(2, "connect=%d, size=%d\n", g_gameinfo.connect, g_gameinfo.size);
+		exit(1);
+	}
 	init_field();
 	t_players *players = init_players(g_gameinfo.tiles_amount);
 	parse_bots(argc, argv, players);
