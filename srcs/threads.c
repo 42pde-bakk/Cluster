@@ -25,8 +25,10 @@ static bool	alive_check() {
 
 void	*draw_loop(void *param) {
 	size_t	i = 0;
+//	mlx_t	*mlx = (mlx_t*)param;
 
-	printf("in draw_loop\n");
+	printf("in MEGA draw_loop\n");
+	printf("started mlx, g_mlx = %p\n", g_mlx);
 
 	(void)param;
 	(void)i;
@@ -35,7 +37,7 @@ void	*draw_loop(void *param) {
 //		dprintf(STDERR_FILENO, "%zu. in draw_loop\n", i);
 		if (g_drawinfo.can_draw) {
 			print_grid_terminal(g_drawinfo.col1, g_drawinfo.col2, g_drawinfo.player);
-//		print_grid_mlx(g_drawinfo.col1, g_drawinfo.col2);
+			print_grid_mlx(g_drawinfo.col1, g_drawinfo.col2);
 			g_drawinfo.can_draw = false;
 		}
 		pthread_mutex_unlock(&mutex_draw);

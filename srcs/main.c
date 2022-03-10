@@ -66,10 +66,7 @@ int main(int argc, char **argv) {
 	parse_bots(argc, argv, players);
 
 	start_mlx();
-
 	setup_threads();
-
-	//mlx_main();
 	//exit(0);
 
 	while (winner == -1) {
@@ -120,7 +117,7 @@ int main(int argc, char **argv) {
 			}
 		}
 		turn += 1;
-		mlx_loop(g_mlx);
+//		mlx_loop(g_mlx);
 	}
 	thread_exit();
 	congratulate_winner(&players->p[winner]);

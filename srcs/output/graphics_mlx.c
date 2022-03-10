@@ -10,7 +10,7 @@
 int colors[6] = {0x000000ff, 0xffffffff, 0xff0000ff, 0xffff00ff, 0x00ff00ff, 0x00ffffff};
 // black 0x0000ff
 mlx_image_t	*g_img;
-mlx_t	*g_mlx;
+mlx_t	*g_mlx = NULL;
 
 // void	hook(void *param)
 // {
@@ -170,17 +170,25 @@ void draw_horizontal_grid(mlx_image_t* g_img, int x, int y, int radius, int amou
 
 void print_grid_mlx(int col1, int col2)
 {
+	printf("g_mlx, g_img : %p, %p\n", g_mlx, g_img);
 	(void)col1;
 	(void)col2;
-	g_img = mlx_new_image(g_mlx, WIDTH, HEIGHT);
+//	if (g_img)
+//		mlx_delete_image(g_mlx, g_img);
+//	g_img = mlx_new_image(g_mlx, WIDTH, HEIGHT);
 	memset(g_img->pixels, 0, g_img->width * g_img->height * sizeof(int));
-	draw_horizontal_grid(g_img, 500, 500, WIDTH / 4 / g_gameinfo.size, g_gameinfo.size, 0xffffffff);
+	draw_horizontal_grid(g_img, 500, 500, WIDTH / 3.5 / g_gameinfo.size, g_gameinfo.size, 0xffffffff);
 	mlx_image_to_window(g_mlx, g_img, 0, 0);
+//	mlx_loop(g_mlx);
 }
 
 int	start_mlx() {
 	g_mlx = mlx_init(WIDTH, HEIGHT, "cluster", true);
+	printf("init: g_mlx=%p\n", (void*)g_mlx);
 	if (!g_mlx)
+		exit(EXIT_FAILURE);
+	g_img = mlx_new_image(g_mlx, WIDTH, HEIGHT);
+	if (!g_img)
 		exit(EXIT_FAILURE);
 	return (0);
 }
