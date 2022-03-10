@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
 	}
 #if !ANIMATE
 	print_grid_terminal(-1, -1);
-			usleep(20000);
+			usleep(200000);
 #endif
 	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
