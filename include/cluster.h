@@ -13,6 +13,10 @@
 #include "gameinfo.h"
 #include "utils.h"
 
+#ifndef TIME_OUT
+# define TIME_OUT 50 // ms
+#endif
+
 #ifndef ANIMATE
 # define ANIMATE 1
 #endif

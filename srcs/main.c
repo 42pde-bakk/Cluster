@@ -81,12 +81,11 @@ int main(int argc, char **argv) {
 			print_inventory(player);
 
 			//player plays their turn
-			t_move move = player_request_input(player);
+			t_move move = player_request_input(player, turn);
 			if (move.type == ERROR) {
 				winner = !i;
 				break;
 			}
-			print_move(2, &move);
 			if (move.type == ALPHA || move.type == BETA) {
 				// update inventory
 				update_inventory(player, &move, col1, col2);

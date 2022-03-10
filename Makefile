@@ -31,6 +31,9 @@ endif
 ifdef ANIMATION
  CFLAGS += -D ANIMATE=$(ANIMATION)
 endif
+ifdef TIME_OUT
+ CFLAGS += -D TIME_OUT=$(TIME_OUT)
+endif
 
 SHELL := /bin/bash
 export SHELL

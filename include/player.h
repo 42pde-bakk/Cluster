@@ -39,7 +39,7 @@ typedef struct s_players {
 }   t_players;
 
 // srcs/player/input.c
-t_move	player_request_input(t_player *player);
+t_move player_request_input(t_player *player, int turn);
 // srcs/player/process.c
 int init_player_process(const char* path, t_player* player);
 
