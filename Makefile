@@ -69,6 +69,7 @@ clean:
 
 fclean: clean
 	/bin/rm -f $(NAME)
+	/bin/rm -f Peer Tiemen Jorien Oscar
 
 re: fclean all
 
