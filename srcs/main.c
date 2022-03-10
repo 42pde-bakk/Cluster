@@ -2,6 +2,7 @@
 #include "player.h"
 #include "move.h"
 #include "mlx.h"
+#include "MLX42/MLX42.h"
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -62,8 +63,15 @@ int main(int argc, char **argv) {
 	init_field();
 	t_players *players = init_players(g_gameinfo.tiles_amount);
 	parse_bots(argc, argv, players);
-	mlx_main();
-	exit(0);
+
+	mlx_t	*mlx;
+
+	mlx = mlx_init(WIDTH, HEIGHT, "cluster", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+
+	//mlx_main();
+	//exit(0);
 
 	while (winner == -1) {
 		//print grid to show options for player
@@ -80,7 +88,10 @@ int main(int argc, char **argv) {
 			if (player->pid) // player is a bot
 				send_turn_info(players, player, turn, col1, col2);
 			else
+			{
 				print_grid_terminal(col1, col2);
+				print_grid_mlx(mlx, col1, col2);
+			}
 			print_inventory(player);
 
 			//player plays their turn
@@ -114,9 +125,11 @@ int main(int argc, char **argv) {
 			}
 		}
 		turn += 1;
+		mlx_loop(mlx);
 	}
 	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
 	free(players);
+	mlx_terminate(mlx);
 	exit(0);
 }
