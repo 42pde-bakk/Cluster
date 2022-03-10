@@ -7,6 +7,8 @@
 #define WIDTH 1000
 #define HEIGHT 1000
 
+//int colors[6] = {0xffffffff, 0x00000000, , , 0xff00ff, 0x00ffffff};
+// black 0x0000ff
 mlx_image_t	*g_img;
 
 // void	hook(void *param)
@@ -72,13 +74,16 @@ void draw_hex(mlx_image_t* g_img, int x, int y, int radius, unsigned int color)
 		float pointx = x + cos(angle) * radius;
 		float pointy = y + sin(angle) * radius;
 		if (lastx != 0 && lasty != 0)
+		{
 			draw_line(g_img, lastx, lasty, pointx, pointy, color);
+			draw_line(g_img, x, y, pointx, pointy, 0x00ffffff);
+		}
 		lastx = pointx;
 		lasty = pointy;
 	}
 }
 
-void draw_vertical_chain(mlx_image_t* g_img, int x, int y, int radius, int amount, int color)
+void draw_vertical_chain(mlx_image_t* g_img, int x, int y, int radius, int amount, unsigned int color)
 {
 	int pointy = 0;
 	int	i = 1;
@@ -104,7 +109,7 @@ void draw_vertical_chain(mlx_image_t* g_img, int x, int y, int radius, int amoun
 	}
 }
 
-void draw_horizontal_chain(mlx_image_t* g_img, int x, int y, int radius, int amount, int index, int color)
+void draw_horizontal_chain(mlx_image_t* g_img, int x, int y, int radius, int amount, int index, unsigned int color)
 {
 	int	i = 0;
 	int w = radius * 2;
@@ -118,7 +123,7 @@ void draw_horizontal_chain(mlx_image_t* g_img, int x, int y, int radius, int amo
 	}
 }
 
-void draw_vertical_grid(mlx_image_t* g_img, int x, int y, int radius, int amount, int color)
+void draw_vertical_grid(mlx_image_t* g_img, int x, int y, int radius, int amount, unsigned int color)
 {
 	int i = 1;
 	draw_vertical_chain(g_img, WIDTH / 2, y, radius, amount * 2 - 1, color);
@@ -130,7 +135,7 @@ void draw_vertical_grid(mlx_image_t* g_img, int x, int y, int radius, int amount
 	}
 }
 
-void draw_horizontal_grid(mlx_image_t* g_img, int x, int y, int radius, int amount, int color)
+void draw_horizontal_grid(mlx_image_t* g_img, int x, int y, int radius, int amount, unsigned int color)
 {
 	int index = 0;
 	int h = sqrt(3) * radius;
@@ -153,7 +158,7 @@ void draw_horizontal_grid(mlx_image_t* g_img, int x, int y, int radius, int amou
 	}
 }
 
-int32_t	main(void)
+int32_t	mlx_main(void)
 {
 	mlx_t	*mlx;
 
@@ -161,13 +166,15 @@ int32_t	main(void)
 	if (!mlx)
 		exit(EXIT_FAILURE);
 	g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	memset(g_img->pixels, 100, g_img->width * g_img->height * sizeof(int));
+	memset(g_img->pixels, 0, g_img->width * g_img->height * sizeof(int));
 	
 	//old method, deos not correspond with array order
 	//draw_vertical_grid(g_img, 500, 500, 50, 5, 0x00f3a4);
 
 	// this one is made in the same order as our terminal grid.
-	draw_horizontal_grid(g_img, 500, 500, 50, 5, 0xffffff);
+	int amount = 5;
+	int radius = WIDTH / amount / 4;
+	draw_horizontal_grid(g_img, 500, 500, radius, amount, 0xffffffff);
 
 	mlx_image_to_window(mlx, g_img, 0, 0);
 	//mlx_loop_hook(mlx, &hook, mlx);

@@ -61,6 +61,8 @@ int main(int argc, char **argv) {
 	init_field();
 	t_players *players = init_players(g_gameinfo.tiles_amount);
 	parse_bots(argc, argv, players);
+	mlx_main();
+	exit(0);
 
 	while (winner == -1) {
 		//print grid to show options for player
