@@ -8,9 +8,10 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 # include "MLX42/MLX42.h"
-//int	mlx_main(void);
-void print_grid_mlx(mlx_t	*mlx, int col1, int col2);
+void	print_grid_mlx(int col1, int col2);
+int		start_mlx();
 
+extern mlx_t	*g_mlx;
 
 
 #endif //CLUSTER_MLX_H

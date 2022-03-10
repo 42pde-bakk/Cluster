@@ -53,7 +53,7 @@ int get_link_direction(int dir);
 int	direction_add(int dir, int add);
 
 // output/print_grid_terminal.c
-void    print_grid_terminal(int opta, int optb);
+void	print_grid_terminal(int opta, int optb, const t_player *player);
 void	print_inventory(const t_player *player);
 
 // srcs/field/tileorder.c

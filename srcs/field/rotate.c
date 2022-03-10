@@ -5,6 +5,7 @@
 #include "cluster.h"
 #include <assert.h>
 #include <move.h>
+#include <threads.h>
 #include "utils.h"
 
 t_tile  **bottoms;
@@ -55,7 +56,8 @@ void let_fall(int column_amount) {
             }
         }
 #if ANIMATE
-        print_grid_terminal(-1, -1);
+		signal_print(-1, -1, NULL);
+//		print_grid_terminal(-1, -1, NULL);
 		usleep(200000);
 #endif
     }

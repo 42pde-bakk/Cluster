@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include "threads.h"
 
 void print_rules()
 {
@@ -64,11 +65,9 @@ int main(int argc, char **argv) {
 	t_players *players = init_players(g_gameinfo.tiles_amount);
 	parse_bots(argc, argv, players);
 
-	mlx_t	*mlx;
+	start_mlx();
 
-	mlx = mlx_init(WIDTH, HEIGHT, "cluster", true);
-	if (!mlx)
-		exit(EXIT_FAILURE);
+	setup_threads();
 
 	//mlx_main();
 	//exit(0);
@@ -88,11 +87,7 @@ int main(int argc, char **argv) {
 			if (player->pid) // player is a bot
 				send_turn_info(players, player, turn, col1, col2);
 			else
-			{
-				print_grid_terminal(col1, col2);
-				print_grid_mlx(mlx, col1, col2);
-			}
-			print_inventory(player);
+				signal_print(col1, col2, player);
 
 			//player plays their turn
 			t_move move = player_request_input(player);
@@ -125,11 +120,12 @@ int main(int argc, char **argv) {
 			}
 		}
 		turn += 1;
-		mlx_loop(mlx);
+		mlx_loop(g_mlx);
 	}
+	thread_exit();
 	congratulate_winner(&players->p[winner]);
 	gameinfo_dtor();
 	free(players);
-	mlx_terminate(mlx);
+	mlx_terminate(g_mlx);
 	exit(0);
 }

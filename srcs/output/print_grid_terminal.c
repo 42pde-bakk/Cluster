@@ -24,7 +24,15 @@
 
 char *grid = 0;
 
-void    print_grid_terminal(int opta, int optb)
+void	print_inventory(const t_player *player) {
+	static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
+
+	printf("Player %s's inventory after drawing honkychonkies:\n", player->name);
+	printf("\t%zu left of %s\n", player->amount[0], items_double[player->col[0] + 1]);
+	printf("\t%zu left of %s\n", player->amount[1], items_double[player->col[1] + 1]);
+}
+
+void print_grid_terminal(int opta, int optb, const t_player *player)
 {
 	if (!grid)
 		grid = generated_map(g_gameinfo.size);
@@ -75,12 +83,6 @@ void    print_grid_terminal(int opta, int optb)
 		i++;
 	}
 	printf("\n");
-}
-
-void	print_inventory(const t_player *player) {
-	static const char	*items_double[6] = { WHT"  "RESET, WHT"{}"RESET, RED"##"RESET, YEL"@@"RESET, GRN"$$"RESET, BLU"&&"RESET };
-
-	printf("Player %s's inventory after drawing honkychonkies:\n", player->name);
-	printf("\t%zu left of %s\n", player->amount[0], items_double[player->col[0] + 1]);
-	printf("\t%zu left of %s\n", player->amount[1], items_double[player->col[1] + 1]);
+	if (player)
+		print_inventory(player);
 }

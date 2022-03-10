@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <cluster.h>
 #include "colours.h"
+#include "threads.h"
 #include <limits.h>
 
 static t_move parse_input(const char input, const int value) {

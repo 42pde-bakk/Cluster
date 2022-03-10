@@ -4,13 +4,15 @@
 
 #include "cluster.h"
 #include <assert.h>
+#include <threads.h>
 
 const t_tile *drop_downwards(t_tile *tile) {
     const int   grav = g_field.gravity;
     t_tile      *down = tile->neighbours[grav];
 
 #if ANIMATE
-    print_grid_terminal(-1, -1);
+    signal_print(-1, -1, NULL);
+//	print_grid_terminal(-1, -1, NULL);
     usleep(200000);
 #endif
     if (down && down->tile_colour == 0) {
