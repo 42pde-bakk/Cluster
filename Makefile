@@ -1,6 +1,6 @@
 NAME = cluster
-INCLUDE = -Iinclude -Imlx/include/MLX42
-HEADER = include/cluster.h mlx/include/MLX42
+INCLUDE = -Iinclude -Imlx/include
+HEADER = include/cluster.h
 
 # Owning the Libs
 LIBS = mlx/libmlx42.a
