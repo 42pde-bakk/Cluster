@@ -12,4 +12,4 @@ file(GLOB outside "*.c")
 
 add_executable(Cluster ${includes} ${srcs} ${extra_srcs} ${output} ${outside})
 include_directories(include)
-include_directories(mlx/include/MLX42)
+include_directories(mlx/include)
