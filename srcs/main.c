@@ -62,7 +62,6 @@ int main(int argc, char **argv) {
 	parser(argc, argv);
 	if (g_gameinfo.connect <= 1 || g_gameinfo.connect >= g_gameinfo.size) {
 		dprintf(STDERR_FILENO, "Error. Please provide a valid win condition!\n");
-		dprintf(2, "connect=%d, size=%d\n", g_gameinfo.connect, g_gameinfo.size);
 		exit(1);
 	}
 	init_field();
