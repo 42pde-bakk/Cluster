@@ -1,6 +1,7 @@
 #include "cluster.h"
 #include "player.h"
 #include "move.h"
+#include "mlx.h"
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>

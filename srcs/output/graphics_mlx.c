@@ -176,7 +176,7 @@ int32_t	mlx_main(void)
 	int radius = WIDTH / amount / 4;
 	draw_horizontal_grid(g_img, 500, 500, radius, amount, 0xffffffff);
 
-	mlx_image_to_window(mlx, g_img, 0, 0);
+	mlx_image_to_window(mlx, g_img, 0, 0, 0);
 	//mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
