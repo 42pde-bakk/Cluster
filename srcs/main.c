@@ -137,7 +137,6 @@ int main(int argc, char **argv) {
 			else if (move.type == ROTATE)
 				winning_colour = win_check_all_tiles(g_gameinfo.connect);
 			if (played_tile == NULL && (move.type == ALPHA || move.type == BETA)) {
-				error_move();
 				winner = !i;
 				break;
 			}
