@@ -9,10 +9,10 @@ void print_rules()
 {
 	printf("Cluster\n\n\
 How to play:\n \
-Type your preffered type of color (A/B) followed by a number from 1 - 9. \
+Type your preffered type of color (A/B) followed by a number from 1 - (gridsize * 2 - 1). \
 Afterwards you will see a ball drop.\n \
 Connect four of these balls to win!\n \
-You can use R followed by a number to rotate the board that amount of times counterclockwise!\n \
+You can use R followed by a number to rotate the board that amount of times clockwise! (between 1 and 5!)\n \
 Good luck!\n");
 }
 
