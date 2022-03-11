@@ -90,7 +90,7 @@ t_move player_request_input(t_player *player, int turn) {
 		if (line_len >= 4 && input_line[1] == ' ')
 			movetype = (char)toupper(input_line[0]);
 		value = (int)strtol(input_line + 2, NULL, 10);
-		// 	free(line_len);
+	// 	free(line_len);
 	} while (!is_valid(movetype, value));
 	ualarm(0, 0);
 	t_move	move = parse_input(movetype, value);
