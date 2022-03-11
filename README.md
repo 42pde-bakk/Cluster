@@ -21,6 +21,6 @@ ANIMATION=0 # Turns the animation off
 ANIMATION_USLEEP=t # Sets the delay between printing states in milliseconds
 LEAKS=1 # Abba thinks we segfault, let's help him rid this illusion!
 ```
-Compile our standard bots by running `make bot`.<br>
+Compile our standard bots by running `make -C bots`.<br>
 
 Happy playing!
