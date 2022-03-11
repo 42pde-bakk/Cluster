@@ -4,9 +4,9 @@ make re -s ANIMATION_USLEEP=30
 make bot -s
 
 function play_matches() {
-  ./cluster "$1" "$2" "$3"
+  ./cluster "bots/$1" "bots/$2" "$3"
   sleep 1
-  ./cluster "$2" "$1" "$3"
+  ./cluster "bots/$2" "bots/$1" "$3"
   sleep 1
 }
 

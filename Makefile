@@ -58,12 +58,6 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $(INCLUDE) $^ -o $@
 
-bot: Peer.c Jorien.c Tiemen.c Oscar.c
-	$(CC) $(CFLAGS) Peer.c $(INCLUDE) -o Peer
-	$(CC) $(CFLAGS) Jorien.c $(INCLUDE) -o Jorien
-	$(CC) $(CFLAGS) Tiemen.c $(INCLUDE) -o Tiemen
-	$(CC) $(CFLAGS) Oscar.c $(INCLUDE) -o Oscar
-
 clean:
 	/bin/rm -f $(OBJECTS)
 
