@@ -136,8 +136,11 @@ int main(int argc, char **argv) {
 				winning_colour = win_check_this_tile(played_tile, g_gameinfo.connect);
 			else if (move.type == ROTATE)
 				winning_colour = win_check_all_tiles(g_gameinfo.connect);
+			if (played_tile == NULL && (move.type == ALPHA || move.type == BETA)) {
+				winner = !i;
+				break;
+			}
 			printf("Placed on board: player %s has %zu and %zu\n", player->name, player->amount[0], player->amount[1]);
-
 			if (winning_colour) {
 				// 1 if winning_colour is 3 or 4
 				// 0 if winning_colour is 1 or 2
