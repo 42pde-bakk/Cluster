@@ -31,7 +31,7 @@ static const t_tile	*wrong_move(const t_move *move) {
 
 const t_tile	*execute_move(const t_move *move) {
 	static const t_jump	jumptable[] = {
-		[ALPHA] = &get_drop_tile,
+		[ALPHA] = &,
 		[BETA] = &get_drop_tile,
 		[ROTATE] = &rotate_field,
 		[ERROR] = &wrong_move,

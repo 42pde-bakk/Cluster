@@ -44,7 +44,7 @@ const t_tile *get_drop_tile(const t_move *move) {
     }
     if (drop_tile->tile_colour) {
         // has already been filled
-        printf("Damn son, the tile you chose already is filled, what a shitty move!\n");
+        printf("Damn son, the column you chose already is filled, your honkychonkie is lost!\n");
         return (NULL);
     }
     drop_tile->tile_colour = move->colour;
